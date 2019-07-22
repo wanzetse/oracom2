@@ -1,0 +1,120 @@
+@()
+
+@master_layout {
+    @partials.leftnav()
+    <section id="content">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card-panel">
+                    <h4 class="header2">Add Till</h4>
+                    <div class="row">
+                        <form class="col s12" autocomplete="off" id="business" name="business">
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input id="organization_name" type="text">
+                                    <label for="organization_name">Business Name</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="organization_name" type="text">
+                                    <label for="organization_name">Business Name</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="cell_2" type="text" class="autocomplete">
+                                    <label for="cell_2">Business Cell_2</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="position" type="text" class="autocomplete">
+                                    <label for="position">Sub-County</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input id="biz_type" type="text">
+                                    <label for="biz_type">Type of Business</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="company_reg" type="text">
+                                    <label for="company_reg">Company Registration No.</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <select class="icons" id="reg" name="reg">
+                                        <option value="select_reg">Select Registration Type</option>
+                                        <option value="Incorporation Certificate">Incorporation Certificate</option>
+                                        <option value="Business Permit">Business Permit</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input id="kra" type="text">
+                                    <label for="kra">KRA PIN</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="no_of_dir" type="text">
+                                    <label for="no_of_dir">Number of Directors</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="director2number" type="text">
+                                    <label for="director2number">MSISDN</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <select class="icons" id="till_tp" name="till_tp">
+                                        <option value="select_till_type">Select Till Type</option>
+                                        <option value="Buy Goods">Buy Goods</option>
+                                        <option value="PayBill">PayBill</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>Certificate of Incorporation/Business Permit</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="input-file-events" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>Scanned Application Form</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="input-file-events" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="divider"></div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <button class="btn cyan waves-effect waves-light right" type="submit" name="merchant" id="merchant">
+                                            Submit
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+} {
+    <script src="@routes.Assets.versioned("javascripts/sweetalert.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/mprogress.min.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/merchants/autocomplete_.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/dropify/dropify.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/dropify/form-file-uploads.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/Businesses/postBusiness.js")"></script>
+} {
+    <link rel="stylesheet" media="screen" type="text/css" href="@routes.Assets.versioned("stylesheets/dropify/dropify.min.css")">
+    <link rel="stylesheet" media="screen" type="text/css" href="@routes.Assets.versioned("stylesheets/mprogress.min.css")">
+}

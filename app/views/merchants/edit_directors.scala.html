@@ -1,0 +1,28 @@
+@()
+
+@master_layout{
+    @partials.leftnav()
+    <section id="content">
+            <!--start container-->
+        <div class="container">
+                <!--Form Advance-->
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="card-panel">
+                        <h4 class="header2">Directors</h4>
+                        <div class="row">
+                            <div class="col s12">
+                                <div id="jsGrid"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}{
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/Directors/directors.js")"></script>
+}{
+    <link href="" type="text/css" rel="stylesheet">
+}

@@ -1,0 +1,70 @@
+@()
+
+@master_layout {
+    @partials.leftnav()
+    <section id="content">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card-panel">
+                    <h4 class="header2">Person Registration</h4>
+                    <div class="row">
+                        <form class="col s12" autocomplete="off" id="head_office" name="head_office">
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input id="hqName" type="text">
+                                    <label for="hqName">Head Office Name</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="hqNumber" type="text">
+                                    <label for="hqNumber">Head Office Number</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="contact_ps" type="text">
+                                    <label for="contact_ps">Contact Person Name</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input id="contact" type="text">
+                                    <label for="contact">Contact Person ID/Passport No.</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="mobile_no" type="text">
+                                    <label for="mobile_no">Mobile Number</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="email_address" type="text">
+                                    <label for="email_address">County address</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input id="location_address" type="text"  class="autocomplete">
+                                    <label for="location_address">Cell_2</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <button class="btn cyan waves-effect waves-light right" type="submit" name="merchant" id="merchant">
+                                            Submit
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+} {
+    <script src="@routes.Assets.versioned("javascripts/sweetalert.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/mprogress.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/HeadOffices/post_headOffice.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/merchants/autocomplete_.js")" type="text/javascript"></script>
+} {
+    <link rel="stylesheet" media="screen" type="text/css" href="@routes.Assets.versioned("stylesheets/mprogress.min.css")">
+}

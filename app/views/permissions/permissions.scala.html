@@ -1,0 +1,221 @@
+@(roles: List[UserRoles])
+
+@master_layout {
+    @partials.leftnav()
+    <section id="content">
+            <!--start container-->
+        <div class="container">
+                <!--Form Advance-->
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="card-panel">
+                        <h4 class="header2">Permissions</h4>
+                        <div class="row">
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <select class="icons" id="user_roles" name="user_roles">
+                                            <option value="select_user_roles">Select Role</option>
+
+                                            @for(role <- roles) {
+                                                <option value="@role.RoleName" data-icon="@routes.Assets.versioned("images/avatar/avatar-7.png")" class="left circle">
+                                                @role.RoleName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+
+                                        <input type="checkbox" id="select_all" name="select_all"/>
+                                        <label for="select_all">Select All</label>
+
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+                                <br>
+                                <div id="checkboxlist">
+                                <div class="row">
+                                    <div class="input-field col s3">
+
+                                        <input type="checkbox" id="create_user" name="select_all[]" value="user.create"/>
+                                        <label for="create_user">Create Users</label>
+
+                                    </div>
+                                    <div class="input-field col s3 fixed">
+                                        <input id="approve_create_user" type="checkbox" name="select_all[]" value="user.approve">
+                                        <label for="approve_create_user">Approve User</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="edit_user" type="checkbox" name="select_all[]" value="user.edit">
+                                        <label for="edit_user">Edit Users</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_edit_user" type="checkbox" name="select_all[]" value="user.edit.approve">
+                                        <label for="approve_edit_user">Approve Edit User</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input type="checkbox" id="create_profile" name="select_all[]" value="profile.create"/>
+                                        <label for="create_profile">Create Profile</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_profile" type="checkbox" name="select_all[]" value="profile.approve">
+                                        <label for="approve_profile">Approve Profile</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="edit_profile" type="checkbox" name="select_all[]" value="profile.edit">
+                                        <label for="edit_profile">Edit Profile</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_edit_profile" type="checkbox" name="select_all[]" value="profile.edit.approve">
+                                        <label for="approve_edit_profile">Approve Edit Profile</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input type="checkbox" id="create_branch" name="select_all[]" value="branch.create"/>
+                                        <label for="create_branch">Create Company</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_branch" type="checkbox" name="select_all[]" value="branch.approve">
+                                        <label for="approve_branch">Approve Company</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="edit_branch" type="checkbox" name="select_all[]" value="branch.edit">
+                                        <label for="edit_branch">Edit Company</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_edit_branch" type="checkbox" name="select_all[]" value="branch.edit.approve">
+                                        <label for="approve_edit_branch">Approve Edit Company</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input type="checkbox" id="create_agent" value="agent.create"/>
+                                        <label for="create_agent">Create Agent</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_agent" type="checkbox" value="agent.approve">
+                                        <label for="approve_agent">Approve Agent</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="edit_agent" type="checkbox" value="agent.edit">
+                                        <label for="edit_agent">Edit Agent</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_edit_agent" type="checkbox" value="agent.edit.approve">
+                                        <label for="approve_edit_agent">Approve Edit Agent</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input type="checkbox" id="create_merchant" value="merchant.create"/>
+                                        <label for="create_merchant">Create Merchant</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_merchant" type="checkbox" value="merchant.approve">
+                                        <label for="approve_merchant">Approve Merchant</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="edit_merchant" type="checkbox" value="merchant.edit">
+                                        <label for="edit_merchant">Edit Merchant</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_edit_merchant" type="checkbox" value="merchant.edit.approve">
+                                        <label for="approve_edit_merchant">Approve Edit Merchant</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input type="checkbox" id="create_customer" value="customer.create"/>
+                                        <label for="create_customer">Create Customer</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_customer" type="checkbox" value="customer.approve">
+                                        <label for="approve_customer">Approve Customer</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="edit_customer" type="checkbox" value="customer.edit">
+                                        <label for="edit_customer">Edit Customer</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_edit_customer" type="checkbox" value="customer.edit.approve">
+                                        <label for="approve_edit_customer">Approve Edit Customer</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input type="checkbox" id="create_charges" value="businesscategory.create"/>
+                                        <label for="create_charges">Create Phones</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_charges" type="checkbox" value="businesscategory.approve">
+                                        <label for="approve_charges">Approve Phones</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="edit_charges" type="checkbox" value="businesscategory.edit">
+                                        <label for="edit_charges">Edit Phones</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_edit_charges" type="checkbox" value="businesscategory.edit.approve">
+                                        <label for="approve_edit_charges">Approve Edit Phones</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input type="checkbox" id="create_loans" value="loans.disburse"/>
+                                        <label for="create_loans">Disburse Loans</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_loan" type="checkbox" value="loans.approve">
+                                        <label for="approve_loan">Approve Loans</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="edit_loan" type="checkbox" value="loans.edit">
+                                        <label for="edit_loan">Edit Loans</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="approve_edit_loan" type="checkbox" value="loans.edit.approve">
+                                        <label for="approve_edit_loan">Approve Edit Loans</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s3">
+                                        <input type="checkbox" id="view_transactions" value="transactions.view"/>
+                                        <label for="view_transactions">View Transactions</label>
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <input id="view_reports" type="checkbox" value="reports.view">
+                                        <label for="view_reports">View Reports</label>
+                                    </div>
+                                </div>
+                                <br>
+                                </div>
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <button class="btn cyan waves-effect waves-light right" type="submit" name="send_permissions" id="send_permissions">
+                                                Submit
+                                                <i class="material-icons right">send</i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+} {
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/permissions/permissions_checkboxes.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/permissions/post_permissions.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/mprogress.min.js")" type="text/javascript"></script>
+
+} {
+    <link href="@routes.Assets.versioned("stylesheets/nouislider.css")" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" media="screen" type="text/css" href="@routes.Assets.versioned("stylesheets/mprogress.min.css")">
+}

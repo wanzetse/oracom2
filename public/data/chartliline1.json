@@ -1,0 +1,5 @@
+﻿{
+  "high_temp": [ 11, 11, 15, 13, 12, 13, 10 ],
+  "low_temp": [ 8, -2, 2, 5, 3, 2, 0 ],
+  "days": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ]
+}

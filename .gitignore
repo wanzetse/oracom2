@@ -1,0 +1,14 @@
+logs
+target
+build
+out
+*.db
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/.gradle
+/RUNNING_PID
+/.vertx
+

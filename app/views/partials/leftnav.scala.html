@@ -1,0 +1,512 @@
+<aside id="left-sidebar-nav" class="nav-expanded nav-lock nav-collapsible">
+    <div class="brand-sidebar 1a237e indigo darken-4">
+        <h1 class="logo-wrapper">
+            <a href="@routes.LoginController.dashboard()" class="brand-logo" >
+                <img src="@routes.Assets.versioned("images/logo/materialize-logo.png")" alt="uchumi logo">
+                <span class="logo-text hide-on-med-and-down">Oracom</span>
+            </a>
+            <a href="#" type="text/javascript" class="navbar-toggler">
+                <i class="material-icons">radio_button_checked</i>
+            </a>
+        </h1>
+    </div>
+    <ul id="slide-out" class="side-nav fixed leftside-navigation">
+        <li class="no-padding">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li class="bold">
+                    </li>
+                <li class="bold">
+                    <a class="collapsible-header waves-effect waves-cyan">
+                        <i class="material-icons">account_circle</i>
+                        <span class="nav-text">User Maintenance</span>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li>
+                                <a href="@routes.DashboardController.create_user()" class="waves-effect waves-color-demo">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span> Create User</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@routes.DashboardController.createUser()" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span> Approve Create</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@routes.DashboardController.edit_user()" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span> Approve Edit</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@routes.DashboardController.delete_user()" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span> Approve Delete</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@routes.DashboardController.resetPass()" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span> Reset User Password</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@routes.DashboardController.resetPass()" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span> Disable User</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@routes.DashboardController.resetPass()" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span> Approve Disable</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="no-padding">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li class="bold">
+                            <a class="collapsible-header  waves-effect waves-cyan">
+                                <i class="material-icons">layers</i>
+                                <span class="nav-text">Profiles</span>
+                            </a>
+                            <div class="collapsible-body">
+                                <ul class="collapsible" data-collapsible="accordion">
+                                    <li class="bold">
+                                        <a class="collapsible-header  waves-effect waves-cyan">
+                                            <i class="material-icons">keyboard_arrow_right</i>
+                                            <span class="nav-text">User Roles</span>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul class="collapsible" data-collapsible="accordion">
+                                                <li>
+                                                    <a href="@routes.ProfilesController.showProfiles()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Create Role</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.ProfilesController.showProfiles()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Role</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.ProfilesController.showProfiles()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Edit Role</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.ProfilesController.showProfiles()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Edit</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="collapsible-body">
+                                <ul class="collapsible" data-collapsible="accordion">
+                                    <li class="bold">
+                                        <a class="collapsible-header  waves-effect waves-cyan">
+                                            <i class="material-icons">keyboard_arrow_right</i>
+                                            <span class="nav-text">User Permissions</span>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul class="collapsible" data-collapsible="accordion">
+                                                <li>
+                                                    <a href="@routes.PermissionsController.loadPermissions()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Assign Permissions</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.PermissionsController.editPermissions()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Edit Permissions</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="bold">
+                    <a class="collapsible-header waves-effect waves-cyan">
+                        <i class="material-icons">account_balance</i>
+                        <span class="nav-text">Companies</span>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li>
+                                <a href="@routes.BranchesController.showBranches()" class="waves-effect waves-teal">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>Create Company</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout-dark.html" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>Approve Create</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout-semi-dark.html" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>Approve Edit</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="layout-fixed-footer.html" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>Approve Delete</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!---------Updates-------------->
+
+                    
+                <!---------Updates-------------->
+
+
+                <li class="no-padding">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li class="bold">
+                            <a class="collapsible-header  waves-effect waves-cyan">
+                                <i class="material-icons">supervisor_account</i>
+                                <span class="nav-text">Persons</span>
+                            </a>
+
+                            <div class="collapsible-body">
+                                <ul class="collapsible" data-collapsible="accordion">
+                                    <li class="bold">
+                                        <a class="collapsible-header  waves-effect waves-cyan">
+                                            <i class="material-icons">keyboard_arrow_right</i>
+                                            <span class="nav-text">Categories</span>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul class="collapsible" data-collapsible="accordion">
+                                                <li>
+                                                    <a href="@routes.HeadOfficeController.showHeadOffice()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Person By Company</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+
+                                            <li>
+                                                <a href="@routes.PersonsByRegionController.showPersonsByRegion()" class="waves-effect waves-cyan">
+                                                    <i class="material-icons">keyboard_arrow_right</i>
+                                                    <span>Person By Region</span>
+                                                </a>
+                                                <li>
+                                                    <a href="@routes.LeadersController.showLeaders()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Leaders/Aspirants</span>
+                                                    </a>
+                                            <li>
+                                                <a href="@routes.BusinessCategoryController.showPhones" class="waves-effect waves-cyan">                                                    <i class="material-icons">keyboard_arrow_right</i>
+                                                    <span>Individual Phone_1 Numbers</span>
+                                                </a>
+                                                <li>
+                                                    <a href="@routes.CorporateEmailsController.showCorporateEmails()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Corporate Emails</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.IndividualEmailsController.showIndividualEmails()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Individual Emails</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="collapsible-body">
+                                <ul class="collapsible" data-collapsible="accordion">
+                                    <li class="bold">
+                                        <a class="collapsible-header  waves-effect waves-cyan">
+                                            <i class="material-icons">keyboard_arrow_right</i>
+                                            <span class="nav-text">Business</span>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul class="collapsible" data-collapsible="accordion">
+                                                <li>
+                                                    <a href="@routes.BusinessController.showBusiness()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Create Business</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.BusinessController.approveBusiness()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Business</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.BusinessController.editBusiness()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Edit Business</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.ProfilesController.showProfiles()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Edit Business</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="collapsible-body">
+                                <ul class="collapsible" data-collapsible="accordion">
+
+                                        <!-- Added 3/1/2019-->
+
+                                    <li class="bold">
+                                        <a class="collapsible-header waves-effect waves-cyan">
+                                            <i class="material-icons">account_balance</i>
+                                            <span class="nav-text">Branch Maintenance</span>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul>
+                                                <li>
+                                                    <a href="@routes.BranchesController.showBranches()">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Create Branch</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="layout-dark.html">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Create</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="layout-semi-dark.html">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Edit</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="layout-fixed-footer.html">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Delete</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                        <!-- Added 3/1/2019-->
+
+
+                                    <li class="bold">
+                                        <a class="collapsible-header  waves-effect waves-cyan">
+                                            <i class="material-icons">keyboard_arrow_right</i>
+                                            <span class="nav-text">Directors</span>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul class="collapsible" data-collapsible="accordion">
+                                                <li>
+                                                    <a href="#" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Add Director</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.DirectorsController.editDirectors()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Director</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.DirectorsController.editDirectors()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Edit Director</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.ProfilesController.showProfiles()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Edit Director</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="collapsible-body">
+                                <ul class="collapsible" data-collapsible="accordion">
+                                    <li class="bold">
+                                        <a class="collapsible-header  waves-effect waves-cyan">
+                                            <i class="material-icons">keyboard_arrow_right</i>
+                                            <span class="nav-text">Tills</span>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul class="collapsible" data-collapsible="accordion">
+                                                <li>
+                                                    <a href="#" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Add Till</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.DirectorsController.editDirectors()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Till</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.DirectorsController.editDirectors()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Disable Till</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.ProfilesController.showProfiles()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Disable</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.DirectorsController.editDirectors()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Activate Till</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="@routes.ProfilesController.showProfiles()" class="waves-effect waves-cyan">
+                                                        <i class="material-icons">keyboard_arrow_right</i>
+                                                        <span>Approve Activate</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="bold">
+                    <a class="collapsible-header waves-effect waves-cyan">
+                        <i class="material-icons" >pie_chart_outlined</i>
+                        <span class="nav-text">Individual Phones</span>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li>
+                                <a href="@routes.BusinessCategoryController.showPhones" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>Create Phones</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="charts-chartist.html" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>Approve Phones</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="charts-morris.html" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>Edit Phones</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="charts-xcharts.html" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>Approve Edit</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li class="bold">
+                    <a class="collapsible-header  waves-effect waves-cyan">
+                        <i class="material-icons">photo_filter</i>
+                        <span class="nav-text">Reports</span>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul class="collapsible" data-collapsible="accordion">
+                            <li>
+                                <a href="ui-basic-buttons.html" class="waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span>Second level</span>
+                                </a>
+                            </li>
+                            <li class="bold">
+                                <a class="collapsible-header  waves-effect waves-cyan">
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    <span class="nav-text">Second level child</span>
+                                </a>
+                                <div class="collapsible-body">
+                                    <ul class="collapsible" data-collapsible="accordion">
+                                        <li>
+                                            <a href="ui-basic-buttons.html" class="waves-effect waves-cyan">
+                                                <i class="material-icons">keyboard_arrow_right</i>
+                                                <span>Third level</span>
+                                            </a>
+                                        </li>
+                                        <li class="bold">
+                                            <a class="collapsible-header  waves-effect waves-cyan">
+                                                <i class="material-icons">keyboard_arrow_right</i>
+                                                <span class="nav-text">Third level child</span>
+                                            </a>
+                                            <div class="collapsible-body">
+                                                <ul class="collapsible" data-collapsible="accordion">
+                                                    <li>
+                                                        <a href="ui-basic-buttons.html" class="waves-effect waves-cyan">
+                                                            <i class="material-icons">keyboard_arrow_right</i>
+                                                            <span>Forth level</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="ui-extended-buttons.html" class="waves-effect waves-cyan">
+                                                            <i class="material-icons">keyboard_arrow_right</i>
+                                                            <span>Forth level</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li class="bold">
+            <a href="@routes.DocsController.viewDocs()" class="waves-effect waves-cyan">
+                <i class="material-icons">mail_outline</i>
+                <span class="nav-text">Docs Configuration</span>
+            </a>
+        </li>
+    </ul>
+</aside>

@@ -1,0 +1,253 @@
+@(offices : List[HeadOffice])
+
+@master_layout {
+    @partials.leftnav()
+    <section id="content">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card-panel">
+                    <h4 class="header2">Business Details</h4>
+                    <div class="row">
+                        <div class="divider"></div>
+                        <div class="input-field col s4">
+                            <select class="icons" id="biz_types" name="biz_types">
+                                <option value="select_user_roles">Select Business Type</option>
+                                <option value="Individual">Individual</option>
+                                <option value="Limited Liability Company">Limited Liability Company</option>
+                                <option value="NGO">NGO</option>
+                                <option value="Partnership">Partnership</option>
+                                <option value="Church">Church</option>
+                                <option value="Co-operative">Co-operative</option>
+                                <option value="Parastatal">Parastatal</option>
+                                <option value="School">School</option>
+                                <option value="Finance Institution">Finance Institution</option>
+
+                            </select>
+                        </div>
+                        <div class="input-field col s4">
+                            <select class="icons" id="hq" name="hq">
+                                <option value="select_hq">Select Head Office</option>
+                                @{/*
+                                @for(office <- offices) {
+                                    <option value="@office.Id" data-icon="@routes.Assets.versioned("images/avatar/avatar-7.png")" class="left circle">
+                                    @office.Person_Name</option>
+                                }
+                                */}
+                            </select>
+                        </div>
+                        <div class="input-field col s4">
+                            <select class="icons" id="till_tp" name="till_tp">
+                                <option value="select_till_type">Select Till Type</option>
+                                <option value="Buy Goods">Buy Goods</option>
+                                <option value="PayBill">PayBill</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form class="col s12" autocomplete="off" id="business" name="business">
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input id="organization_name" type="text">
+                                    <label for="organization_name">Business Name</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="cell_2" type="text" class="autocomplete">
+                                    <label for="cell_2">Sub-County</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="position" type="text" class="autocomplete">
+                                    <label for="position">Town</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input id="biz_type" type="text">
+                                    <label for="biz_type">Type of Business</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="company_reg" type="text">
+                                    <label for="company_reg">Company Registration No.</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="bizpNo" type="text">
+                                    <label for="bizpNo">Business Permit No.</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    <input id="kra" type="text">
+                                    <label for="kra">KRA PIN</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="no_of_dir" type="text">
+                                    <label for="no_of_dir">Number of Directors</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <input id="director2number" type="text">
+                                    <label for="director2number">MSISDN</label>
+                                </div>
+                            </div>
+                            <div class="row" id="bizCert">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>Certificate of Incorporation/Business Permit</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="pbizCert" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="sForm">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>Scanned Application Form</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="psForm" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="utils">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>Utility Bill</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="putils" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="bizPhoto">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>Business Photo</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="pbizPhoto" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="bankLetter">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>Bank Letter</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="pbankLetter" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="cheque">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>Cancelled Cheque</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="pcheque" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="board_resolution">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>Board Resolution</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="pboard_resolution" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="cr12">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>CR12</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="pcr12" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="regulator">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>Regulator Authority Letter</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="pregulator" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" id="council">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>City Council Business Permit</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="pcouncil" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" id="kraPin">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>KRA PIN</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="pkra" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="audited">
+                                <div class="divider"></div>
+                                <div class="row section">
+                                    <div class="col s12 m4 l3">
+                                        <p>Latest Audited Accounts</p>
+                                    </div>
+                                    <div class="col s12 m8 l9">
+                                        <input type="file" id="paudited" class="dropify-event" data-default-file="@routes.Assets.versioned("images/gallary/1.png")" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="divider"></div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <button class="btn cyan waves-effect waves-light right" type="submit" name="merchant" id="merchant">
+                                            Submit
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+} {
+    <script src="@routes.Assets.versioned("javascripts/sweetalert.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/mprogress.min.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/merchants/autocomplete_.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/dropify/dropify.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/dropify/form-file-uploads.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/Businesses/postBusiness.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/docs/load_docsSettings.js")"></script>
+} {
+    <link rel="stylesheet" media="screen" type="text/css" href="@routes.Assets.versioned("stylesheets/dropify/dropify.min.css")">
+    <link rel="stylesheet" media="screen" type="text/css" href="@routes.Assets.versioned("stylesheets/mprogress.min.css")">
+}

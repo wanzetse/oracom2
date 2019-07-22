@@ -1,0 +1,43 @@
+@(createForm: Html)(javascriptVariable: Html)(extraCss:Html)
+<html lang="en">
+    <head>
+        @partials.header()
+        @extraCss
+
+    </head>
+    <body>
+
+        @partials.body_header()
+            <!-- END HEADER -->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!-- START MAIN -->
+        <div id="main">
+                <!-- START WRAPPER -->
+            <div class="wrapper">
+                    <!-- START LEFT SIDEBAR NAV-->
+                    <!-- END LEFT SIDEBAR NAV-->
+                    <!-- //////////////////////////////////////////////////////////////////////////// -->
+                    <!-- START CONTENT -->
+                @createForm
+
+                    <!-- //////////////////////////////////////////////////////////////////////////// -->
+                    <!-- START RIGHT SIDEBAR NAV-->
+                @partials.rightsidenav()
+                    <!-- END RIGHT SIDEBAR NAV-->
+            </div>
+                <!-- END WRAPPER -->
+        </div>
+            <!-- END MAIN -->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!-- START FOOTER -->
+        @partials.footer()
+        @javascriptVariable
+            <!-- END FOOTER -->
+            <!-- ================================================
+    Scripts
+    ================================================ -->
+
+        <script src="@routes.Assets.versioned("javascripts/sweetalert.min.js")" type="text/javascript"></script>
+
+    </body>
+</html>

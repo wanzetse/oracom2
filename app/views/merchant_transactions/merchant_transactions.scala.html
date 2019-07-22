@@ -1,0 +1,94 @@
+@()
+
+@master_layout{
+    @partials.leftnav()
+    <section id="content">
+        <div class="container">
+            <div class="section">
+                <div class="card-panel">
+                <div id="table-datatables">
+                    <h4 class="header">Merchant Transactions</h4>
+                    <div class="row">
+                        <div class="col s12">
+                            <table id="transactions" class="responsive-table display nowrap" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>FirstName</th>
+                                        <th>MiddleName</th>
+                                        <th>LastName</th>
+                                        <th>SettlementAc</th>
+                                        <th>Company_Branch</th>
+                                        <th>TransactionType</th>
+                                        <th>TransID</th>
+                                        <th>TransTime</th>
+                                        <th>Amount</th>
+                                        <th>ShortCode</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!-- Floating Action Button -->
+            <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+                <a class="btn-floating btn-large gradient-45deg-light-blue-cyan gradient-shadow">
+                    <i class="material-icons">add</i>
+                </a>
+                <ul>
+                    <li>
+                        <a href="css-helpers.html" class="btn-floating blue">
+                            <i class="material-icons">help_outline</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="cards-extended.html" class="btn-floating green">
+                            <i class="material-icons">widgets</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="app-calendar.html" class="btn-floating amber">
+                            <i class="material-icons">today</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="app-county.html" class="btn-floating red">
+                            <i class="material-icons">mail_outline</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+                <!-- Floating Action Button -->
+        </div>
+        </div>
+            <!--end container-->
+    </section>
+}{
+        <!--data-->
+        <!--table-jsgrid.js - Page Specific JS codes-->
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/libs/jsgrid.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/datatables/jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/datatables/data-tables.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/merchant_transactions/merchant_transactions.js")"></script>
+
+        <!-- Jquery DataTable Plugin Js -->
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/Datatables-1.10.16/js/jquery.dataTables.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/Buttons-1.5.1/js/dataTables.buttons.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/Buttons-1.5.1/js/buttons.flash.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/JSZip-2.5.0/jszip.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery-datatable/extensions/export/pdfmake.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/pdfmake-0.1.32/vfs_fonts.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery-datatable/extensions/export/buttons.html5.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery-datatable/extensions/export/buttons.print.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/FixedColumns-3.2.4/js/dataTables.fixedColumns.min.js")"></script>
+}{
+    <link href="@routes.Assets.versioned("stylesheets/libs/jsgrid.min.css")" type="text/css" rel="stylesheet">
+    <link href="@routes.Assets.versioned("stylesheets/fontc-css/fontawesome.min.css")" type="text/css" rel="stylesheet">
+    <link href="@routes.Assets.versioned("stylesheets/libs/jsgrid-theme.min.css")" type="text/css" rel="stylesheet">
+    <link href="@routes.Assets.versioned("stylesheets/flag-icon/flag-icon.min.css")" type="text/css" rel="stylesheet">
+    <link href="@routes.Assets.versioned("stylesheets/datatables/jquery.dataTables.min.css")" type="text/css" rel="stylesheet">
+    <link href="@routes.Assets.versioned("stylesheets/datatables/buttons.dataTables.min.css")" type="text/css" rel="stylesheet">
+    <link href="@routes.Assets.versioned("javascripts/FixedColumns-3.2.4/css/fixedColumns.dataTables.min.css")" type="text/css" rel="stylesheet">
+}

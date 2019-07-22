@@ -1,0 +1,138 @@
+@()
+
+@master_layout {
+    @partials.leftnav()
+    <section id="content">
+            <!--start container-->
+        <div class="container">
+                <!--Form Advance-->
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="card-panel">
+                        <h4 class="header2">Document Configuration</h4>
+                        <div class="row">
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <select class="icons" id="biz_types" name="biz_types">
+                                            <option value="select_user_roles">Select Business Type</option>
+                                            <option value="Individual">Individual</option>
+                                            <option value="Limited Liability Company">Limited Liability Company</option>
+                                            <option value="NGO">NGO</option>
+                                            <option value="Partnership">Partnership</option>
+                                            <option value="Church">Church</option>
+                                            <option value="Co-operative">Co-operative</option>
+                                            <option value="Parastatal">Parastatal</option>
+                                            <option value="School">School</option>
+                                            <option value="Finance Institution">Finance Institution</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            <form class="col s12" id="edit_doc" name="edit_doc">
+
+                                <div id="changingCheckboxes">
+
+                                    <div class="row">
+                                        <div class="input-field col s3">
+
+                                            <input type="checkbox" id="select_all" name="select_all"/>
+                                            <label for="select_all">Select All</label>
+
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div id="checkboxlist">
+                                        <div class="row">
+                                            <div class="divider"></div>
+                                            <div class="input-field col s3">
+                                                <input type="checkbox" id="app_form" name="app_form" value="app_form"/>
+                                                <label for="app_form">Application Form</label>
+
+                                            </div>
+                                            <div class="input-field col s3 fixed">
+                                                <input id="dir_id" type="checkbox" name="dir_id" value="dir_id">
+                                                <label for="dir_id">Director ID</label>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <input id="kra" type="checkbox" name="kra" value="kra">
+                                                <label for="kra">KRA PIN</label>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <input id="c_council" type="checkbox" name="c_council" value="FALSE">
+                                                <label for="c_council">City Council Business Permit</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <input type="checkbox" id="biz_reg" name="biz_reg" value="FALSE"/>
+                                                <label for="biz_reg">Business Reg. Certificate</label>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <input id="U_bill" type="checkbox" name="U_bill" value="FALSE">
+                                                <label for="U_bill">Utility Bill</label>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <input id="biz_photo" type="checkbox" name="biz_photo" value="FALSE">
+                                                <label for="biz_photo">Business Photo</label>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <input id="bank_l" type="checkbox" name="bank_l" value="FALSE">
+                                                <label for="bank_l">Bank Letter</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <input type="checkbox" id="c_cheq" name="c_cheq" value="FALSE"/>
+                                                <label for="c_cheq">Cancelled Cheque</label>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <input id="b_resolution" type="checkbox" name="b_resolution" value="FALSE">
+                                                <label for="b_resolution">Board Resolution</label>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <input id="cr12" type="checkbox" name="cr12" value="FALSE">
+                                                <label for="cr12">CR12</label>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <input id="ra_letter" type="checkbox" name="ra_letter" value="FALSE">
+                                                <label for="ra_letter">Regulator Authority Letter</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s3">
+                                                <input type="checkbox" id="accounts" value="FALSE"/>
+                                                <label for="accounts">Latest Audited Accounts</label>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <button class="btn cyan waves-effect waves-light right" type="submit" name="edit_configs" id="edit_configs">
+                                                    Update
+                                                    <i class="material-icons right">send</i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+} {
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/docs/docs_checkby_id.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/permissions/permissions_checkboxes.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/permissions/edit_disableform.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/docs/post_docs.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/docs/getdocs.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/mprogress.min.js")" type="text/javascript"></script>
+
+} {
+    <link href="@routes.Assets.versioned("stylesheets/nouislider.css")" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" media="screen" type="text/css" href="@routes.Assets.versioned("stylesheets/mprogress.min.css")">
+}

@@ -1,0 +1,298 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET           /                                              controllers.LoginController.login()
+GET           /oracom/logout                                 controllers.LoginController.logout()
+# An example controller showing how to use dependency injection
+GET           /oracom/dashboard                              controllers.LoginController.dashboard()
++nocsrf
+POST          /oracom/SaveUser                               controllers.DashboardController.SaveUser()
+
+GET           /oracom/approveUser                            controllers.DashboardController.loadCrudPage()
++nocsrf
+GET           /oracom/permissions                            controllers.PermissionsController.loadPermissions()
++nocsrf
+POST          /oracom/savePermissions                        controllers.PermissionsController.postCreatePermissions()
++nocsrf
+GET           /oracom/editpermissions                        controllers.PermissionsController.editPermissions()
++nocsrf
+GET           /oracom/BranchesMaster/:s/:p                   controllers.BranchesController.loadBranches(s:Integer,p:Integer)
++nocsrf
+POST          /oracom/query_suggestions                      controllers.BranchesController.returnCompanyNameSuggestions()
++nocsrf
+POST          /oracom/query                                  controllers.BranchesController.returnCompanyData()
++nocsrf
+POST          /oracom/sendMessage/sms                        controllers.BranchesController.sendBulkSMS()
++nocsrf
+POST          /oracom/persons/sms                            controllers.HeadOfficeController.sendBulkSMS()
++nocsrf
+POST          /oracom/sendEmail/email                        controllers.BranchesController.sendEmail()
++nocsrf
+POST          /oracom/persons/email                          controllers.HeadOfficeController.sendEmail()
+
+GET           /loracom/load_merchant_transactions            controllers.MerchantTransactions.loadMerchantTransactions()
++nocsrf
+GET           /oracom/ProfilesMaster                         controllers.ProfilesController.loadProfiles()
++nocsrf
+POST          /oracom/loadpermissions                        controllers.PermissionsController.loadEditPermissions()
++nocsrf
+GET           /oracom/UsersMaster                            controllers.DashboardController.loadUsers()
++nocsrf
+GET           /oracom/create_user                            controllers.DashboardController.create_user()
++nocsrf
+POST          /oracom/posteditpermissions                    controllers.PermissionsController.postEditPermission()
++nocsrf
+PUT           /oracom/editedUsers                            controllers.DashboardController.edit_user()
++nocsrf
+DELETE        /oracom/deletedUsers                           controllers.DashboardController.delete_user()
++nocsrf
+DELETE        /oracom/delete_user                            controllers.LoginController.deleteUser()
+#+nocsrf
+#POST        /oracom/editMerchant                      controllers.MerchantsController.editMerchant()
+GET           /oracom/resetPass                              controllers.DashboardController.resetPass()
+#GET           /oracom/showDirectors                     controllers.DirectorsController.showDirectors()
+GET           /oracom/showPersons                            controllers.HeadOfficeController.showHeadOffice()
+GET           /oracom/loadPersons                            controllers.HeadOfficeController.loadHeadOffice()
+
+GET           /oracom/delete/all                             controllers.HeadOfficeController.postDeleteAllPersons()
+GET           /oracom/delete/selected                        controllers.HeadOfficeController.postDeleteSelectedPersons()
+GET           /oracom/show_merchant_transactions             controllers.MerchantTransactions.showMerchantTransactions()
++nocsrf
+PUT           /oracom/EditProfile                            controllers.ProfilesController.editProfile()
+
+#**************************START HeadOffices****************************************************************************
+
+#+nocsrf
+#POST        /oracom/postEditHeadOffice                controllers.HeadOfficeController.postEditHeadOffice()
++nocsrf
+PUT           /oracom/editPerson                             controllers.HeadOfficeController.editHeadOffice()
++nocsrf
+POST          /oracom/savePerson                             controllers.HeadOfficeController.saveHeadOffice()
++nocsrf
+DELETE        /oracom/postDelete                             controllers.HeadOfficeController.postDelete()
+#+nocsrf
+#PUT           /oracom/editHeadOffice          p          controllers.HeadOfficeController.editHeadOffice()
+#*************************END HeadOffices*******************************************************************************
+
+#**************************START Directors******************************************************************************
++nocsrf
+POST          /oracom/postEditDirectors                      controllers.DirectorsController.postEditDirectors()
+#GET           /oracom/loadDirectors                     controllers.DirectorsController.loadDirectors()
+GET           /oracom/editDirectors                          controllers.DirectorsController.editDirectors()
++nocsrf
+POST          /oracom/postSaveDirector                       controllers.DirectorsController.postSaveDirector()
++nocsrf
+POST          /oracom/postDirectorJsGrid                     controllers.DirectorsController.savejsGridDirector()
+#*************************END Directors*********************************************************************************
+
+#**************************START Businesses******************************************************************************
++nocsrf
+POST          /oracom/saveBusinesses                         controllers.BusinessController.postSaveBusiness()
++nocsrf
+GET           /oracom/PhonesMaster                           controllers.BusinessCategoryController.showPhones()
++nocsrf
+GET           /oracom/load_phones                            controllers.BusinessCategoryController.loadPhones()
++nocsrf
+POST          /oracom/upload_phones                          controllers.BusinessCategoryController.upload()
++nocsrf
+GET           /oracom/delete/all_phones                      controllers.BusinessCategoryController.postDeleteAll()
++nocsrf
+GET           /oracom/delete/selected_phones                 controllers.BusinessCategoryController.postDeleteSelected()
++nocsrf
+DELETE        /oracom/delete_phones                          controllers.BusinessCategoryController.postDelete()
++nocsrf
+GET           /oracom/send/sms                               controllers.BusinessCategoryController.sendBulkSMS()
++nocsrf
+POST          /oracom/save_business_category                 controllers.BusinessCategoryController.saveJsGridPhones
++nocsrf
+PUT           /oracom/edit_business_category                 controllers.BusinessCategoryController.postEditPhones
++nocsrf
+POST          /oracom/postEditBusiness                       controllers.BusinessController.postEditBusiness()
+#GET           /oracom/LoadBusinesses                    controllers.BusinessController.loadBusinesses()
+GET           /oracom/showBusiness                           controllers.BusinessController.showBusiness()
+GET           /oracom/approveBusiness                        controllers.BusinessController.approveBusiness()
+GET           /oracom/editBusiness                           controllers.BusinessController.editBusiness()
+#*************************END Businesses*********************************************************************************
+
+#**************************START Businesses******************************************************************************
+
+#**************************PERSONS WITH THEIR CATEGORIES*******************************************START**********************
++nocsrf
+GET           /oracom/PersonsByRegion                        controllers.PersonsByRegionController.showPersonsByRegion()
++nocsrf
+GET           /oracom/loadPersonsByRegion                    controllers.PersonsByRegionController.loadPersonsByRegions()
++nocsrf
+GET           /oracom/delete/all_by_region                   controllers.PersonsByRegionController.postDeleteSelected
++nocsrf
+GET           /oracom/delete/selected/by_region              controllers.PersonsByRegionController.postDeleteAll
++nocsrf
+PUT           /oracom/editPersonsByRegion                    controllers.PersonsByRegionController.editPersonByRegion()
++nocsrf
+POST          /oracom/savePersonsByRegion                    controllers.PersonsByRegionController.saveJsGridPersonsByRegion()
++nocsrf
+POST          /oracom/upload_persons_by_region               controllers.PersonsByRegionController.uploadPersonsByRegion()
++nocsrf
+DELETE        /oracom/deletePersonsByRegion                  controllers.PersonsByRegionController.editPersonByRegion()
++nocsrf
+GET           /oracom/sendEmail_to_PersonsByRegion           controllers.PersonsByRegionController.sendEmail()
++nocsrf
+GET           /oracom/sendSMS_to_PersonsByRegion             controllers.PersonsByRegionController.sendBulkSMS()
+
+
+#------------------------LEADERS/ASPIRANTS----------------------------------------------------------------------------
+
++nocsrf
+GET           /oracom/Leaders                                controllers.LeadersController.showLeaders()
++nocsrf
+GET           /oracom/load_Leaders                           controllers.LeadersController.loadLeaders()
++nocsrf
+PUT           /oracom/editLeaders                            controllers.LeadersController.editLeaders()
++nocsrf
+POST          /oracom/saveLeaders                            controllers.LeadersController.saveJsGridLeaders()
++nocsrf
+POST          /oracom/upload_leaders                         controllers.LeadersController.uploadLeaders()
++nocsrf
+DELETE        /oracom/deleteLeaders                          controllers.LeadersController.postDeleteLeader()
+
++nocsrf
+GET           /oracom/deleteAllLeaders                       controllers.LeadersController.postDeleteAllLeaders()
++nocsrf
+GET           /oracom/deleteSelectedLeaders                  controllers.LeadersController.postDeleteSelectedLeader()
++nocsrf
+GET           /oracom/sendSMS_to_Leaders                     controllers.LeadersController.sendBulkSMS()
++nocsrf
+GET           /oracom/sendEmail_to_Leaders                   controllers.LeadersController.sendEmail()
+
+
+#------------------------INDIVIDUAL PHONE NUMBERS----------------------------------------------------------------------------
+
++nocsrf
+GET           /oracom/PhoneNumbers                           controllers.IndividualPhoneNumberController.showPhoneNumbers()
++nocsrf
+GET           /oracom/loadPhoneNumbers                       controllers.IndividualPhoneNumberController.loadIndividualPhoneNumbers()
++nocsrf
+PUT           /oracom/editPhoneNumbers                       controllers.IndividualPhoneNumberController.editIndividualPhoneNumbers()
++nocsrf
+POST          /oracom/savePhoneNumbers                       controllers.IndividualPhoneNumberController.saveJsGridIndividualPhoneNumbers()
++nocsrf
+POST          /oracom/uploadNumbers                          controllers.IndividualPhoneNumberController.uploadIndividualPhoneNumbers()
++nocsrf
+DELETE        /oracom/deletePhoneNumbers                     controllers.IndividualPhoneNumberController.postDeleteIndividualPhoneNumbers()
++nocsrf
+GET           /oracom/deleteAllNumbers                       controllers.IndividualPhoneNumberController.postDeleteAllPhoneNumbers()
++nocsrf
+GET           /oracom/deleteSelectedNumbers                  controllers.IndividualPhoneNumberController.postDeleteSelectedPhoneNumbers()
++nocsrf
+GET           /oracom/sendBulkSMS_to_numbers                 controllers.IndividualPhoneNumberController.sendBulkSMS()
++nocsrf
+GET           /oracom/sendMassEmail_to_numbers               controllers.IndividualPhoneNumberController.sendEmail()
+
+
+#**************************CORPORATE EMAILS*********************************************************************************
+
++nocsrf
+GET           /oracom/CorporateEmails                        controllers.CorporateEmailsController.showCorporateEmails()
++nocsrf
+GET           /oracom/loadCorporateEmails                    controllers.CorporateEmailsController.loadCorporateEmails()
++nocsrf
+PUT           /oracom/editCorporateEmails                    controllers.CorporateEmailsController.editCorporateEmails()
++nocsrf
+POST          /oracom/saveCorporateEmails                    controllers.CorporateEmailsController.saveJsGridCorporateEmails()
++nocsrf
+POST          /oracom/upload_corporate_emails                controllers.CorporateEmailsController.uploadCorporateEmails()
++nocsrf
+DELETE        /oracom/deleteCorporateEmails                  controllers.CorporateEmailsController.postDeleteCorporateEmails()
++nocsrf
+GET           /oracom/deleteAllCorporateEmails               controllers.CorporateEmailsController.postDeleteAllCorporateEmails()
++nocsrf
+GET           /oracom/deleteSelectedCorporateEmails          controllers.CorporateEmailsController.postDeleteSelectedCorporateEmails()
++nocsrf
+GET           /oracom/sendSMS_to_corporate_emails            controllers.CorporateEmailsController.sendBulkSMS()
++nocsrf
+GET           /oracom/sendEmail_to_corporate_emails          controllers.CorporateEmailsController.sendEmail()
+
+#**************************INDIVIDUAL EMAILS********************************************************************************
+
++nocsrf
+GET           /oracom/individual/emails                      controllers.IndividualEmailsController.showIndividualEmails()
++nocsrf
+GET           /oracom/loadIndividualEmails                   controllers.IndividualEmailsController.loadIndividualEmails()
++nocsrf
+PUT           /oracom/editIndividualEmails                   controllers.IndividualEmailsController.editIndividualEmails()
++nocsrf
+POST          /oracom/saveIndividualEmails                   controllers.IndividualEmailsController.saveJsGridIndividualEmails()
++nocsrf
+POST          /oracom/upload_individual_emails               controllers.IndividualEmailsController.uploadIndividualEmails()
++nocsrf
+DELETE        /oracom/deleteIndividualEmails                 controllers.IndividualEmailsController.postDeleteIndividualEmails()
++nocsrf
+GET           /oracom/deleteAllIndividualEmails              controllers.IndividualEmailsController.postDeleteAllIndividualEmails()
++nocsrf
+GET           /oracom/deleteSelectedCIndividualEmails        controllers.IndividualEmailsController.postDeleteSelectedIndividualEmails()
++nocsrf
+GET           /oracom/sendSMS_to_individual_emails           controllers.IndividualEmailsController.sendBulkSMS()
++nocsrf
+GET           /oracom/sendEmail_to_individual_emails         controllers.IndividualEmailsController.sendEmail()
+
+#**************************PERSONS WITH THEIR CATEGORIES********************************************END*********************
+
+
++nocsrf
+POST          /oracom/postConfigs                            controllers.DocsController.postCreateDocConfiguration()
++nocsrf
+POST          /oracom/loadConfigs                            controllers.DocsController.loadDocConfigurations()
+GET           /oracom/viewConfigs                            controllers.DocsController.viewDocs()
+#*************************END Businesses*********************************************************************************
++nocsrf
+POST          /oracom/postDeleteUser                         controllers.LoginController.postDelete()
++nocsrf
+PUT           /oracom/EditBranch                             controllers.BranchesController.editBranches()
++nocsrf
+PUT           /oracom/EditUser                               controllers.LoginController.EditUser()
++nocsrf
+POST          /oracom/SaveBranch                             controllers.BranchesController.saveJsGridBranch()
++nocsrf
+POST          /oracom/postSaveCompany                        controllers.BranchesController.postSaveCompany()
++nocsrf
+GET           /oracom/reports/excel                          controllers.BranchesController.generateExcelReport()
++nocsrf
+DELETE        /Oracom/postDeleteBranch                       controllers.BranchesController.postDelete()
++nocsrf
+GET           /Oracom/postDeleteAllBusinesses                controllers.BranchesController.postDeleteAll()
++nocsrf
+GET           /Oracom/postDeleteSelectedBusinesses           controllers.BranchesController.postDeleteSelected()
++nocsrf
+POST          /oracom/SaveProfile                            controllers.ProfilesController.saveProfile()
++nocsrf
+DELETE        /oracom/deleteProfile                          controllers.ProfilesController.deleteProfile()
+#+nocsrf
+#POST        /oracom/postMerchant                      controllers.MerchantsController.CreateMerchant()
+#GET         /oracom/getMerchants                      controllers.MerchantsController.loadMerchants()
+
+GET           /oracom/profiles                               controllers.ProfilesController.showProfiles()
++nocsrf
+GET           /oracom/businessdirectory                      controllers.BranchesController.showBranches()
++nocsrf
+POST          /oracom/branches                               controllers.BranchesController.upload()
++nocsrf
+POST          /oracom/persons                                controllers.HeadOfficeController.upload()
++nocsrf
+GET           /oracom                                        controllers.LoginController.login()
++nocsrf
+POST          /oracom/dashboard                              controllers.LoginController.postLogin()
+GET           /oracom/createUser                             controllers.DashboardController.createUser()
+GET           /about                                         controllers.Default.redirect(to = "http://uchumibank.co.tz")
+# Responds with 404 Not Found
+GET           /orders                                        controllers.Default.notFound
+#get lenth of list of branches
+GET           /branches/len                                  controllers.BranchesController.getlenth()
+# Responds with 500 Internal Server Error
+GET           /clients                                       controllers.Default.error
+
+# Responds with 501 Not Implemented
+GET           /posts                                         controllers.Default.todo
+
+# MapLatitude static resources from the /public folder to the /assets URL path
+GET           /assets/*file                                  controllers.Assets.versioned(path="/public", file: Asset)

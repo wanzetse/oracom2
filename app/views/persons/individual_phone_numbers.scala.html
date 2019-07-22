@@ -1,0 +1,231 @@
+@(form: Form[controllers.FormDataController], individualPhonesEmailForm: Form[Message])
+
+    @master_layout {
+        @partials.leftnav()
+        <!--Disable the defult horizontal scroll bar -->
+        <style>
+                div::-webkit-scrollbar {
+                    display: none;
+                }
+
+        </style>
+
+        <div class="overflow-panel" style="margin-top: 0%" >
+            <button id="toggle1" >Upload Excel</button>
+            <button id="toggle2" >Send Mass Email_1</button>
+            <button id="toggle3" >Send Bulk SMS</button>
+            <button id="open-all" >Open all</button>
+            <button id="close-all">Close all</button>
+            <button id="close-all" > <a href="@routes.IndividualPhoneNumberController.postDeleteAllPhoneNumbers()"><font color="red"><b>
+                DELETE ALL</b></font></a></button>
+            <button id="close-all"><a href="@routes.IndividualPhoneNumberController.postDeleteSelectedPhoneNumbers()"><font color="red">
+                Delete selected</font> </a></button>
+            <article class="beefup" data-beefup-options='{"animation": "", "openSpeed": 800}' id="beefup1">
+                    <!--   <span >Accordion 1</span>-->
+                <div class="beefup__body">
+                    <section id="content">
+                    @helper.form(action = routes.IndividualPhoneNumberController.uploadIndividualPhoneNumbers, 'enctype -> "multipart/form-data") {
+                        @helper.inputFile(form("name"))
+                        @helper.CSRF.formField
+
+                        <div class="container">
+                            <div class ="row">
+
+                                <input type = "submit" class ="btn btn-info" value = "upload file">
+
+                            </div>
+
+                        </div>
+                    }
+
+                    </section>
+                </div>
+            </article>
+            <article class="beefup" id="beefup2" data-beefup-options='{"animation": "", "openSpeed": 800}'>
+                <div class="beefup__body">
+                    <div class="form-group">
+
+                    @helper.form(action = routes.IndividualPhoneNumberController.sendEmail(), 'id -> "emailForm", 'method -> "post") {
+
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                <label for="fromTextField" class="center-align"><b>From: </b></label>
+                                <input id="fromTextField" type="text" name="fromTextField">
+                            </div>
+                        </div>
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                <label for="passwordTextField" class="center-align"><b>Password: </b></label>
+                                <input id="passwordTextField" type="password" name="passwordTextField">
+                            </div>
+                        </div>
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                <label for="subjectTextField" class="center-align"><b>RE: </b></label>
+                                <input id="subjectTextField" type="text" name="subjectTextField">
+                            </div>
+                        </div>
+
+                        <div >
+                            <div >
+                                <textarea class="editor" id="bodyTextField" type="text" name="bodyTextField" >
+                                    Please type your email_1 here...</textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12" style="width: 200px ;
+                                position: center">
+                                <button class="btn waves-effect waves-light col s12" id="sendEmail" name="sendEmail">
+                                    Send email_1</button>
+                            </div>
+                        </div>
+
+                    }
+                    </div>
+                </div>
+            </article>
+            <article class="beefup" data-beefup-options='{"animation": "", "openSpeed": 800}' id="beefup3" >
+                    <!--   <span >Accordion 1</span>-->
+                <div class="beefup__body">
+                    <div class="form-group">
+
+                    @helper.form(action = routes.IndividualPhoneNumberController.sendBulkSMS(), 'id -> "smsForm", 'method -> "post") {
+
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                    <!--    <i class="material-icons prefix pt-5">person_outline</i> -->
+                                <label for="senderIDTextField" class="center-align" ><b><i>
+                                    SENDER ID</i></b></label>
+                                <input id="senderIDTextField" type="text" name="senderIDTextField" autocomplete="on">
+                            </div>
+                        </div>
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                    <!--    <i class="material-icons prefix pt-5">person_outline</i> -->
+                                <label for="userNameTextField" class="center-align" ><b><i>
+                                    Username</i></b></label>
+                                <input id="userNameTextField" type="text" name="userNameTextField" autocomplete="on">
+                            </div>
+                        </div>
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                    <!--    <i class="material-icons prefix pt-5">person_outline</i> -->
+                                <label for="senderIDPasswordTextField" class="center-align" ><b><i>
+                                    Password</i></b></label>
+                                <input id="senderIDPasswordTextField" type="password" name="senderIDPasswordTextField" autocomplete="on">
+                            </div>
+                        </div>
+                        <div class="row margin">
+                            <div class="input-field col s12">
+                                    <!--    <i class="material-icons prefix pt-5">person_outline</i> -->
+                                <label for="smsbodyTextField" class="center-align" ><b><i>
+                                    Type your broadcast SMS here (500 characters)...</i></b></label>
+                                <textarea id="smsbodyTextField" type="text" name="smsbodyTextField" autocomplete="on" maxlength='500'>
+                                    Type your broadcast SMS here...</textarea>
+                                <div id="charNum"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="input-field col s12" style="width: 200px;
+                                position: center">
+                                <button class="btn waves-effect waves-light col s12" id="sendSMS" name="sendSMS">
+                                    Send Bulk SMS</button>
+                            </div>
+                        </div>
+
+                    }
+
+                    </div>
+                </div>
+            </article>
+
+                <!-----BULK SMS FORM -->
+
+
+                <!-----BULK SMS FORM -->
+
+
+                <!--start container-->
+            <div class="container" style="margin-left: 0%">
+                    <!--Form Advance-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel">
+
+                            <B><h4 class="header2">Individual Phone_1 Numbers</h4></B>
+
+                            <div class="row" >
+                                <div class="col s12">
+                                    <div id="jsGrid" ></div>
+                                    <div id="dialog" title="Image Full Size View">
+                                        <img id="imagePreview" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s12" style="margin-left: 0%">
+                                    <div id="jqGrid"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            } {
+
+        <script type="text/javascript" src="@routes.Assets.versioned("javascripts/Persons/individualPhoneNumbers.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.versioned("javascripts/branches/email_form_null_checks.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.versioned("javascripts/branches/email_1-form-check.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.versioned("javascripts/branches/sms-form-check.js")"></script>
+
+        <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery.toast.js")"></script>
+
+        <script type="text/javascript" src="@routes.Assets.versioned("javascripts/branches/sendMessage.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.versioned("javascripts/bootstrap_javascript/bootstrap.min.js")"></script>
+
+        <script src="@routes.Assets.versioned("javascripts/jquery-validation/jquery.validate.min.js")" type="text/javascript"></script>
+        <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery-validation/additional-methods.min.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/materialize.min.js")" type="text/javascript">
+        </script>
+
+        <script src="@routes.Assets.versioned("javascripts/perfect-scrollbar.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/plugins.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/sweetalert.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/mprogress.min.js")" type="text/javascript"></script>
+
+        <script src="@routes.Assets.versioned("javascripts/jquery.beefup.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/accordion2.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/jquery.floatingscroll.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/floating_horizontal_scroll.js")" type="text/javascript"></script>
+
+        <script src="@routes.Assets.versioned("javascripts/jquery-te-1.4.0.min.js")" type="text/javascript"></script>
+
+
+    } {
+            <!-- <link href=" @routes.Assets.versioned("stylesheets/css/bootstrap.min.css")" type="text/css" rel="stylesheet">-->
+        <link href="@routes.Assets.versioned("stylesheets/jquery.toast.css")" type="text/css" rel="stylesheet"/>
+
+
+        <link href="@routes.Assets.versioned("stylesheets/css/bootstrap-theme.min.css")" type="text/css" rel="stylesheet">
+        <link href="@routes.Assets.versioned("stylesheets/accordion2.css")" type="text/css" rel="stylesheet">
+        <link href="@routes.Assets.versioned("stylesheets/jquery.floatingscroll.css")" type="text/css" rel="stylesheet">
+        <link href="@routes.Assets.versioned("stylesheets/floatingscroll.css")" type="text/css" rel="stylesheet">
+        <link href="@routes.Assets.versioned("stylesheets/jquery-te-1.4.0.css")" type="text/css" rel="stylesheet">
+
+            <!--<link href="
+
+
+    @routes.Assets.versioned("stylesheets/jQueryTextEditorCustom.css")
+            " type="text/css" rel="stylesheet">
+
+            @@routes.Assets.versioned("stylesheets/jQueryTextEditorCustom.css")
+            " type="text/css" rel="stylesheet">-->
+
+    }
+</div>

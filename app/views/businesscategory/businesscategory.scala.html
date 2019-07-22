@@ -1,0 +1,132 @@
+@(form: Form[controllers.FormDataController]) @master_layout {
+    @partials.leftnav()
+
+    <button id="toggle1" >Upload Excel</button>
+   <!-- <button id="toggle2" >Send Mass Email_1</button>-->
+    <button id="toggle3" >Send Bulk SMS</button>
+    <button id="open-all" >Open all</button>
+    <button id="close-all">Close all</button>
+    <button id="close-all" > <a href="@routes.BusinessCategoryController.postDeleteAll()"><font color="red"><b>DELETE ALL</b></font></a></button>
+    <button id="close-all"><a href="@routes.BusinessCategoryController.postDeleteSelected()"><font color="red">Delete selected</font> </a></button>
+    <article class="beefup" data-beefup-options='{"animation": "", "openSpeed": 800}' id="beefup1">
+            <!--   <span >Accordion 1</span>-->
+        <div class="beefup__body">
+            <section id="content">
+            @helper.form(action = routes.BusinessCategoryController.upload, 'enctype -> "multipart/form-data") {
+                @helper.inputFile(form("name"))
+                @helper.CSRF.formField
+
+                <div class="container">
+                    <div class ="row">
+
+                        <input type = "submit" class ="btn btn-info" value = "upload file">
+
+                    </div>
+
+                </div>
+            }
+
+            </section>
+        </div>
+    </article>
+
+
+    <article class="beefup" data-beefup-options='{"animation": "", "openSpeed": 800}' id="beefup3" >
+            <!--   <span >Accordion 1</span>-->
+        <div class="beefup__body">
+            <div class="form-group">
+
+            @helper.form(action = routes.BranchesController.sendBulkSMS(), 'id -> "smsForm", 'method -> "post") {
+
+                <div class="row margin">
+                    <div class="input-field col s12">
+                            <!--    <i class="material-icons prefix pt-5">person_outline</i> -->
+                        <label for="senderIDTextField" class="center-align" ><b><i>
+                            SENDER ID</i></b></label>
+                        <input id="senderIDTextField" type="text" name="senderIDTextField" autocomplete="on">
+                    </div>
+                </div>
+                <div class="row margin">
+                    <div class="input-field col s12">
+                            <!--    <i class="material-icons prefix pt-5">person_outline</i> -->
+                        <label for="userNameTextField" class="center-align" ><b><i>
+                            Username</i></b></label>
+                        <input id="userNameTextField" type="text" name="userNameTextField" autocomplete="on">
+                    </div>
+                </div>
+                <div class="row margin">
+                    <div class="input-field col s12">
+                            <!--    <i class="material-icons prefix pt-5">person_outline</i> -->
+                        <label for="senderIDPasswordTextField" class="center-align" ><b><i>
+                            Password</i></b></label>
+                        <input id="senderIDPasswordTextField" type="password" name="senderIDPasswordTextField" autocomplete="on">
+                    </div>
+                </div>
+                <div class="row margin">
+                    <div class="input-field col s12">
+                            <!--    <i class="material-icons prefix pt-5">person_outline</i> -->
+                        <label for="smsbodyTextField" class="center-align" ><b><i>
+                            Type your broadcast SMS here (500 characters)...</i></b></label>
+                        <textarea id="smsbodyTextField" type="text" name="smsbodyTextField" autocomplete="on" maxlength='500'>
+                            Type your broadcast SMS here...</textarea>
+                        <div id="charNum"></div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field col s12" style="width: 200px;
+                        position: center">
+                        <button class="btn waves-effect waves-light col s12" id="sendSMS" name="sendSMS">
+                            Send Bulk SMS</button>
+                    </div>
+                </div>
+
+            }
+
+            </div>
+        </div>
+    </article>
+
+
+
+    <section id="content">
+            <!--start container-->
+
+        <div class="container">
+                <!--Form Advance-->
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="card-panel">
+                        <h4 class="header2">Individual Phone_1 Numbers</h4>
+                        <div class="row">
+                            <div class="col s12">
+                                <div id="jsGrid"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+} {
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/BusinessCategory/business_category.js")"></script>
+
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/branches/sms-form-check.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery.toast.js")"></script>
+
+    <script src="@routes.Assets.versioned("javascripts/jquery.beefup.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/accordion2.js")" type="text/javascript"></script>
+
+} {
+    <link href="" type="text/css" rel="stylesheet">
+    <link href="@routes.Assets.versioned("stylesheets/accordion2.css")" type="text/css" rel="stylesheet">
+    <link href="@routes.Assets.versioned("stylesheets/jquery.toast.css")" type="text/css" rel="stylesheet"/>
+
+
+
+
+}

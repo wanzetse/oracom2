@@ -1,0 +1,48 @@
+﻿{
+  "region_student": [
+    {
+      "name": "Akdeniz Bölgesi",
+      "value": 1159,
+      "kiz": 646,
+      "erkek": 513
+    },
+    {
+      "name": "Doğu Anadolu Bölgesi",
+      "value": 1090,
+      "kiz": 507,
+      "erkek": 583
+    },
+    {
+      "name": "Ege Bölgesi",
+      "value": 642,
+      "kiz": 362,
+      "erkek": 280
+    },
+    {
+      "name": "Güneydoğu Anadolu Bölgesi",
+      "value": 10,
+      "kiz": 5,
+      "erkek": 5
+    },
+    {
+      "name": "İç Anadolu Bölgesi",
+      "value": 6174,
+      "kiz": 2347,
+      "erkek": 3827
+    },
+   
+    {
+      "name": "Karadeniz Bölgesi",
+      "value": 2421,
+      "kiz": 1128,
+      "erkek": 1293
+    },
+    {
+      "name": "Marmara Bölgesi",
+      "value": 623,
+      "kiz": 330,
+      "erkek": 293
+    }
+
+  ]
+}
