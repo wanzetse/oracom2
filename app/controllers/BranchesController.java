@@ -16,7 +16,6 @@ import modules.sms.SendSms;
 //import org.apache.poi.poifs.filesystem.NPOIFSFileSystem;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;
-import org.sqlite.core.DB;
 import play.libs.Json;
 
 import org.slf4j.Marker;
@@ -25,7 +24,6 @@ import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
-import play.libs.concurrent.HttpExecution;
 import play.mvc.*;
 import views.html.branch.main_branch;
 import models.*;
@@ -39,7 +37,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.Executor;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -74,6 +71,10 @@ public class BranchesController extends Controller {
     private Marker notifyAdmin = MarkerFactory.getMarker("NOTIFY_ADMIN");
 
     private static List<Branch> branches;
+
+    private static int len;
+
+
 
 
 
@@ -456,16 +457,21 @@ public class BranchesController extends Controller {
     @Security.Authenticated(Secured.class)
     public CompletionStage<Result> loadBranches(int s,int p) {
 
-        Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+        // Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+        len= Ebean.find(Branch.class).findCount();
+        ObjectNode node=Json.newObject();
+        node.put("branches",QueryBranches(s,p));
+        node.put("len",len);
 
 
         logger.info("Loading branches....for user {} and Branch {} ", session().get("Username"), session().get("branch"));
 
-        return QueryBranches(s,p).thenApplyAsync(branches -> ok(Json.toJson(branches)), myEc);
+        //return QueryBranches(s,p).thenApplyAsync(branches -> ok(Json.toJson(branches)), myEc);
+        return CompletableFuture.completedFuture(ok(node));
     }
 
 
-    public static CompletionStage<List<Branch>> QueryBranches(int s, int p) {
+    public  JsonNode QueryBranches(int s, int p) {
 
 
 
@@ -487,7 +493,7 @@ public class BranchesController extends Controller {
         logger.info("+++++++++++++++++++++++++++++++++++++++++++ RoleName |{}|", userRoleName);
 
 
-        return CompletableFuture.completedFuture(branches);
+        return Json.toJson(branches);
 
     }
 
@@ -633,10 +639,6 @@ public class BranchesController extends Controller {
 
     }
 
-    public CompletableFuture<Result> getlenth(){
-        int count=Branch.find.all().size();
 
-        return CompletableFuture.completedFuture(ok(count+""));
-    }
 
 }

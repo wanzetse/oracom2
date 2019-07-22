@@ -1,7 +1,4 @@
-function promptlen() {
-    return(1000000)
 
-}
 $(function () {
 
     $.toast({
@@ -243,26 +240,23 @@ $(function () {
                 $.ajax({
 
                     url: "/oracom/BranchesMaster/"+ filter.pageIndex + "/" + filter.pageSize,
-                    data: {
-                        page: filter.pageIndex,
-                        sort: filter.sortField,
-                        order: filter.sortOrder
-                    },
+                    data:filter,
                     cache:true,
                     dataType: "json"
 
 
                 }).done(function(response){
+                    response.data=response.branches;
+                    response.itemsCount = response.len;
 
-                    response.itemsCount = promptlen();
-                    response.data=response;
+                    applyFilter(response, filter);
                     deferred.resolve(response);
 
-                    return applyFilter(response, filter);
+
                 });
 
                 return deferred.promise();
-                // return applyFilter(data, filter);
+
             },
 
 

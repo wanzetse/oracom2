@@ -286,8 +286,7 @@ GET           /oracom/createUser                             controllers.Dashboa
 GET           /about                                         controllers.Default.redirect(to = "http://uchumibank.co.tz")
 # Responds with 404 Not Found
 GET           /orders                                        controllers.Default.notFound
-#get lenth of list of branches
-GET           /branches/len                                  controllers.BranchesController.getlenth()
+
 # Responds with 500 Internal Server Error
 GET           /clients                                       controllers.Default.error
 

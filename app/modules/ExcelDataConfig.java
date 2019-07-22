@@ -90,7 +90,9 @@ public class ExcelDataConfig {
             getSheetvalue(sheet.getRow(i).getCell(19))
  );
          //oldBranch.save();
+
         newBranch.add(oldBranch);
+
 
          }
      
