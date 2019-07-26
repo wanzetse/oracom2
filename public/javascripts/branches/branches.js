@@ -239,7 +239,7 @@ $(function () {
                 var deferred = $.Deferred();
                 $.ajax({
 
-                    url: "/oracom/BranchesMaster/"+ filter.pageIndex + "/" + filter.pageSize,
+                    url: "/oracom/BranchesMaster",
                     data:filter,
                     cache:true,
                     dataType: "json"
@@ -249,7 +249,7 @@ $(function () {
                     response.data=response.branches;
                     response.itemsCount = response.len;
 
-                    applyFilter(response, filter);
+                  
                     deferred.resolve(response);
 
 

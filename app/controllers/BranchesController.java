@@ -455,12 +455,47 @@ public class BranchesController extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public CompletionStage<Result> loadBranches(int s,int p) {
+    public CompletionStage<Result> loadBranches() {
 
         // Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
-        len= Ebean.find(Branch.class).findCount();
+        
         ObjectNode node=Json.newObject();
-        node.put("branches",QueryBranches(s,p));
+        String[] params=new String[24];
+
+        /*selected=&Company_Name=hjhjjhjgjjjjjjjjjjhjg
+&Company_Category=ytyujtyuuy&Company_Subcategory=
+&Email_1=&Email_2=&Phone_1=&Phone_2=&Website=&County=
+&Town=&Street_Name=&Building=&MapLatitude=&MapLongitude=
+&companyBranch=&Services=&Status=&Comments=&CreatedBy=&dateCreated=
+&pageIndex=1&pageSize=50
+*/
+        DynamicForm rq = formFactory.form().bindFromRequest();
+        params[1]=rq.get("Company_Name");
+        params[2]=rq.get("Company_Category");
+        params[3]=rq.get("Company_Subcategory");
+        params[4]=rq.get("Email_1");
+        params[5]=rq.get("Email_2");
+        params[6]=rq.get("Phone_1");
+        params[7]=rq.get("Phone_2");
+        params[8]=rq.get("Website");
+        params[9]=rq.get("County");
+        params[10]=rq.get("Town");
+        params[11]=rq.get("Street_Name");
+        params[12]=rq.get("Building");
+        params[13]=rq.get("MapLatitude");
+        params[14]=rq.get("MapLongitude");
+        params[15]=rq.get("companyBranch");
+        params[16]=rq.get("Services");
+        params[17]=rq.get("Status");
+        params[18]=rq.get("Comments");
+        params[19]=rq.get("CreatedBy");
+        params[20]=rq.get("dateCreated");
+        params[21]=rq.get("pageIndex");
+        params[22]=rq.get("pageSize");
+
+
+
+        node.put("branches",QueryBranches(params));
         node.put("len",len);
 
 
@@ -471,23 +506,90 @@ public class BranchesController extends Controller {
     }
 
 
-    public  JsonNode QueryBranches(int s, int p) {
+    public  JsonNode QueryBranches(String[] otherParams) {
 
+/*selected=&Company_Name=hjhjjhjgjjjjjjjjjjhjg
+&Company_Category=ytyujtyuuy&Company_Subcategory=
+&Email_1=&Email_2=&Phone_1=&Phone_2=&Website=&County=
+&Town=&Street_Name=&Building=&MapLatitude=&MapLongitude=
+&companyBranch=&Services=&Status=&Comments=&CreatedBy=&dateCreated=
+&pageIndex=1&pageSize=50
+*/
+
+
+String Company_Name=otherParams[1];
+String Company_Category=otherParams[2];
+String Company_Subcategory=otherParams[3];
+String Email_1=otherParams[4];
+String Email_2=otherParams[5];
+String Phone_1=otherParams[6];
+String Phone_2=otherParams[7];
+String Website=otherParams[8];
+String County=otherParams[9];
+String Town=otherParams[10];
+String Street_Name=otherParams[11];
+String Building=otherParams[12];
+String MapLatitude=otherParams[13];
+String MapLongitude=otherParams[14];
+String companyBranch=otherParams[15];
+String Services=otherParams[16];
+String Status=otherParams[17];
+String Comments=otherParams[18];
+String CreatedBy=otherParams[19];
+String dateCreated=otherParams[20];
+int pageIndex=Integer.parseInt(otherParams[21]);
+int pageSize=Integer.parseInt(otherParams[22]);
+
+len = Branch.find.query().where()
+        .ilike("Company_Name", "%"+Company_Name+"%")
+        .ilike("Company_Category", "%"+Company_Category+"%")
+        .ilike("Company_Subcategory", "%"+Company_Subcategory+"%")
+        .ilike("Email_1", "%"+Email_1+"%")
+        .ilike("Email_2", "%"+Email_2+"%")
+        .ilike("Phone_1", "%"+Phone_1+"%")
+        .ilike("Phone_2", "%"+Phone_2+"%")
+        .ilike("Website", "%"+Website+"%")
+        .ilike("County", "%"+County+"%")
+        .ilike("Town", "%"+Town+"%")
+        .ilike("Building", "%"+Building+"%")
+        .ilike("MapLatitude", "%"+MapLatitude+"%")
+        .ilike("MapLongitude", "%"+MapLongitude+"%")
+        .ilike("Company_Branch", "%"+companyBranch+"%")
+        .ilike("Services", "%"+Services+"%")
+        .ilike("Status", "%"+Status+"%")
+        .ilike("Comments", "%"+Comments+"%")
+        .ilike("CreatedBy", "%"+CreatedBy+"%")
+        .ilike("dateCreated", "%"+dateCreated+"%")
+        .findCount();
+
+branches = Branch.find.query().where()
+        .ilike("Company_Name", "%"+Company_Name+"%")
+        .ilike("Company_Category", "%"+Company_Category+"%")
+        .ilike("Company_Subcategory", "%"+Company_Subcategory+"%")
+        .ilike("Email_1", "%"+Email_1+"%")
+        .ilike("Email_2", "%"+Email_2+"%")
+        .ilike("Phone_1", "%"+Phone_1+"%")
+        .ilike("Phone_2", "%"+Phone_2+"%")
+        .ilike("Website", "%"+Website+"%")
+        .ilike("County", "%"+County+"%")
+        .ilike("Town", "%"+Town+"%")
+        .ilike("Building", "%"+Building+"%")
+        .ilike("MapLatitude", "%"+MapLatitude+"%")
+        .ilike("MapLongitude", "%"+MapLongitude+"%")
+        .ilike("Company_Branch", "%"+companyBranch+"%")
+        .ilike("Services", "%"+Services+"%")
+        .ilike("Status", "%"+Status+"%")
+        .ilike("Comments", "%"+Comments+"%")
+        .ilike("CreatedBy", "%"+CreatedBy+"%")
+        .ilike("dateCreated", "%"+dateCreated+"%")
+        .setFirstRow(pageIndex)
+        .setMaxRows(pageSize)
+        .findPagedList()
+        .getList();
 
 
         String userRoleName = session().get("RoleName");
 
-
-
-        int start=(s-1)*p;
-
-
-        Query<Branch> query = Ebean.find(Branch.class).where().setFirstRow(start).setMaxRows(p);
-
-
-
-        PagedList<Branch> list = query.findPagedList();
-        branches=list.getList();
 
 
         logger.info("+++++++++++++++++++++++++++++++++++++++++++ RoleName |{}|", userRoleName);

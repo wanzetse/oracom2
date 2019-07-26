@@ -18,7 +18,7 @@ POST          /oracom/savePermissions                        controllers.Permiss
 +nocsrf
 GET           /oracom/editpermissions                        controllers.PermissionsController.editPermissions()
 +nocsrf
-GET           /oracom/BranchesMaster/:s/:p                   controllers.BranchesController.loadBranches(s:Integer,p:Integer)
+GET           /oracom/BranchesMaster                         controllers.BranchesController.loadBranches()
 +nocsrf
 POST          /oracom/query_suggestions                      controllers.BranchesController.returnCompanyNameSuggestions()
 +nocsrf
