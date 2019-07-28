@@ -1,5 +1,7 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import be.objectify.deadbolt.java.actions.Pattern;
@@ -50,6 +52,7 @@ public class DashboardController extends Controller {
     private ActorSystem actorSystem;
     public static String SMS;
     public static String emailToSend;
+    private static int len;
     private Marker notifyAdmin = MarkerFactory.getMarker("NOTIFY_ADMIN");
     @Inject
     FormFactory formFactory;
@@ -196,18 +199,62 @@ public class DashboardController extends Controller {
     }
 
     public CompletionStage<Result> loadUsers() {
+      String[] params=new String[7];
+      DynamicForm rq = formFactory.form().bindFromRequest();
+      params[0]=rq.get("first_name");
+      params[1]=rq.get("last_name");
+      params[2]=rq.get("mobile_number");
+      params[3]=rq.get("email");
+      params[4]=rq.get("RoleName");
+      params[5]=rq.get("pageIndex");
 
-        Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
-
+        /*
+   first_name=&last_name=&mobile_number=&email=&RoleName=0
+        */
+      params[6]=rq.get("pageSize");
+       // Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+      ObjectNode node=Json.newObject();
+      node.put("users",QueryUsers(params));
+      node.put("len",len);
         logger.info("Loading branches....for user {} and Branch {} ", session().get("Username"), session().get("branch"));
 
-        return QueryUsers().thenApplyAsync(users -> ok(Json.toJson(users)), myEc);
+        return CompletableFuture.completedFuture(ok(node));
     }
 
-    private CompletionStage<List<UserManagement>> QueryUsers() {
-        List<UserManagement> userManagements = UserManagement.finder.query().where().eq("Deleted", Boolean.FALSE).findList();
+  public  JsonNode QueryUsers(String[] params) {
+    
+        /*
+   first_name=&last_name=&mobile_number=&email=&RoleName=0
+        */
+   String first_name=params[0];
+   String last_name=params[1];
+   String mobile_number=params[2];
+   String email=params[3];
+   String RoleName=params[4];
+   int pageIndex=Integer.parseInt(params[5]);
+   int pageSize=Integer.parseInt(params[6]);
 
-        return CompletableFuture.completedFuture(userManagements);
+
+   len=UserManagement.finder.query().where().eq("Deleted", Boolean.FALSE)
+        .ilike("first_name","%"+first_name+"%")
+        .ilike("last_name","%"+last_name+"%")
+        .ilike("mobile_number","%"+mobile_number+"%")
+        .ilike("email","%"+email+"%")
+        .findCount();
+
+
+
+        List<UserManagement> userManagements = UserManagement.finder.query().where().eq("Deleted", Boolean.FALSE)
+        .ilike("first_name","%"+first_name+"%")
+        .ilike("last_name","%"+last_name+"%")
+        .ilike("mobile_number","%"+mobile_number+"%")
+        .ilike("email","%"+email+"%")
+        .setFirstRow(pageIndex)
+        .setMaxRows(pageSize)
+        .findPagedList()
+        .getList();
+
+        return Json.toJson(userManagements);
     }
 
     public static String generateRandom(int length) {

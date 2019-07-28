@@ -22,17 +22,35 @@ $(function () {
             sorting: true,
             paging: true,
             autoload: true,
+            pageLoading: true,
             pageSize: 10,
             pageButtonCount: 5,
             deleteConfirm: "Do you really want to delete user?",
             controller: {
-                loadData: function (filter) {
-                    return $.ajax({
-                        type: "GET",
-                        url: "/oracom/UsersMaster",
-                        data: filter
-                    });
-                },
+             
+                loadData: function(filter){
+                var deferred = $.Deferred();
+                $.ajax({
+
+                    url: "/oracom/UsersMaster",
+                    data:filter,
+                    cache:true,
+                    dataType: "json"
+
+
+                }).done(function(response){
+                    response.data=response.users;
+                    response.itemsCount = response.len;
+
+                  
+                    deferred.resolve(response);
+
+
+                });
+
+                return deferred.promise();
+
+            },
                 insertItem: function (item) {
                     return $.ajax({
                         type: "POST",

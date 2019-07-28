@@ -14,10 +14,7 @@ $(function () {
             type: "GET",
             url: "/MpayaWallet/LoadBusinesses"
         }).done(function (businesses) {
-            $.ajax({
-                type: "GET",
-                url: "/MpayaWallet/loadDirectors"
-            }).done(function (data) {
+         
                 $("#jsGrid").jsGrid({
                     height: "auto",
                     width: "100%",
@@ -26,6 +23,7 @@ $(function () {
                     editing: true,
                     sorting: true,
                     paging: true,
+                    pageLoading:true,
                     autoload: true,
                     insertRowLocation: "top",
                     pageSize: 10,
@@ -115,16 +113,29 @@ $(function () {
                         {type: "control"}
                     ],
                     controller: {
-                        loadData: function (filter) {
-                            return $.grep(data, function (item) {
-                                // client-side filtering below (be sure conditions are correct)
-                                return (!filter.firstName || item.firstName.indexOf(filter.firstName) > -1)
-                                    && (!filter.middleName || item.middleName.indexOf(filter.middleName) > -1)
-                                    && (!filter.lastName || item.lastName.indexOf(filter.lastName) > -1)
-                                    && (!filter.mobileNumber || item.mobileNumber.indexOf(filter.mobileNumber) > -1)
-                                    && (!filter.emailAddress || item.emailAddress.indexOf(filter.emailAddress) > -1)
-                            });
-                        },
+                       loadData: function(filter){
+                var deferred = $.Deferred();
+                $.ajax({
+
+                     url: "/MpayaWallet/loadDirectors",
+                    data:filter,
+                    cache:true,
+                    dataType: "json"
+
+
+                }).done(function(response){
+                    response.data=response.data;
+                    response.itemsCount =response.len;
+
+                  
+                    deferred.resolve(response);
+
+
+                });
+
+                return deferred.promise();
+
+            },
                         insertItem: function (item) {
                             return $.ajax({
                                 type: "POST",
@@ -159,4 +170,3 @@ $(function () {
     });
 
 
-});

@@ -73,13 +73,7 @@ $(function () {
     //************CUSTOM CHECKBOX*************
 
 
-    $.ajax({
-        type: "GET",
-        url: "/oracom/load_phones"
-        //  dataType: "json"
-
-    }).done(function (data) {
-        console.log(data);
+  
 
         $("#jsGrid").jsGrid({
             height: "auto",
@@ -90,6 +84,7 @@ $(function () {
             sorting: true,
             paging: true,
             autoload: true,
+            pageLoading:true,
             insertRowLocation: "top",
             pageSize: 10,
             pageButtonCount: 5,
@@ -147,18 +142,29 @@ $(function () {
             ],
 
             controller: {
-                loadData: function (filter) {
-                    return $.grep(data, function (item) {
-                        // client-side filtering below (be sure conditions are correct)
-                        return (!filter.individual_phone || item.individual_phone.indexOf(filter.individual_phone) > -1)
-                            && (!filter.individualPhone_status || item.individualPhone_status.toLowerCase().indexOf(filter.individualPhone_status.toLowerCase()) > -1)
-                            && (!filter.individualPhone_Comments || item.individualPhone_Comments.toLowerCase().indexOf(filter.individualPhone_Comments.toLowerCase()) > -1)
-                            && (!filter.CreateDate || item.CreateDate.indexOf(filter.CreateDate) > -1)
-                            && (!filter.CreatedBy || item.CreatedBy.indexOf(filter.CreatedBy) > -1)
+                loadData: function(filter){
+                var deferred = $.Deferred();
+                $.ajax({
 
-                    });
-                },
-                insertItem: function (item) {
+                    url: "/oracom/load_phones",
+                    data:filter,
+                    cache:true,
+                    dataType: "json"
+
+
+                }).done(function(response){
+                    response.data=response.data;
+                    response.itemsCount =response.len;
+
+                  
+                    deferred.resolve(response);
+
+
+                });
+
+                return deferred.promise();
+
+            },                insertItem: function (item) {
                     return $.ajax({
                         type: "POST",
                         url: "/oracom/save_business_category",
@@ -186,7 +192,7 @@ $(function () {
 
         });
     });
-});
+
 
 
 

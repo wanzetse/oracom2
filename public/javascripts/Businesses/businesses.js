@@ -8,10 +8,7 @@ $(function () {
         type: "GET",
         url: "/MpayaWallet/loadHeadOffices"
     }).done(function (headOffices) {
-        $.ajax({
-            type: "GET",
-            url: "/MpayaWallet/LoadBusinesses"
-        }).done(function (data) {
+   
             $("#jsGrid").jsGrid({
                 height: "auto",
                 width: "100%",
@@ -21,6 +18,7 @@ $(function () {
                 sorting: true,
                 paging: true,
                 autoload: true,
+                pageLoading:true,
                 insertRowLocation: "top",
                 pageSize: 10,
                 pageButtonCount: 5,
@@ -130,16 +128,29 @@ $(function () {
                     {type: "control"}
                 ],
                 controller: {
-                    loadData: function (filter) {
-                        return $.grep(data, function (item) {
-                            // client-side filtering below (be sure conditions are correct)
-                            return (!filter.first_name || item.first_name.indexOf(filter.first_name) > -1)
-                                && (!filter.mid_name || item.mid_name.indexOf(filter.mid_name) > -1)
-                                && (!filter.last_name || item.last_name.indexOf(filter.last_name) > -1)
-                                && (!filter.mobile_number || item.mobile_number.indexOf(filter.mobile_number) > -1)
-                                && (!filter.email || item.email.indexOf(filter.email) > -1)
-                        });
-                    },
+                        loadData: function(filter){
+                var deferred = $.Deferred();
+                $.ajax({
+
+                     url: "/MpayaWallet/LoadBusinesses",
+                    data:filter,
+                    cache:true,
+                    dataType: "json"
+
+
+                }).done(function(response){
+                    response.data=response.data;
+                    response.itemsCount =response.len;
+
+                  
+                    deferred.resolve(response);
+
+
+                });
+
+                return deferred.promise();
+
+            },
                     insertItem: function (item) {
                         return $.ajax({
                             type: "POST",
@@ -171,4 +182,3 @@ $(function () {
     })
 
 
-});

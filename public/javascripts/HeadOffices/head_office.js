@@ -75,12 +75,6 @@ $(function () {
 
     ];
 
-    $.ajax({
-        type: "GET",
-        url: "/oracom/loadPersons"
-
-    }).done(function (data) {
-        console.log(data);
         $("#jsGrid").jsGrid({
             height: "auto",
             width: "100%",
@@ -190,22 +184,30 @@ $(function () {
 
             controller: {
 
-                loadData: function (filter) {
-                    return $.grep(data, function (item) {
-                        // client-side filtering below (be sure conditions are correct)
-                        return (!filter.First_Name || item.First_Name.indexOf(filter.First_Name) > -1)
-                            && (!filter.Middle_Name || item.Middle_Name.indexOf(filter.Middle_Name) > -1)
-                            && (!filter.Last_Name || item.Last_Name.indexOf(filter.Last_Name) > -1)
-                            && (!filter.Company || item.Company.indexOf(filter.Company) > -1)
-                            && (!filter.Email || item.Email.indexOf(filter.Email) > -1)
-                            && (!filter.Phone || item.Phone.indexOf(filter.Phone) > -1)
-                            && (!filter.Proffession || item.Proffession.indexOf(filter.Proffession) > -1)
-                            && (!filter.Sex || item.Sex.indexOf(filter.Sex) > -1)
-                            && (!filter.CreatedBy || item.CreatedBy.indexOf(filter.CreatedBy) > -1)
-                            && (!filter.dateCreated || item.dateCreated.indexOf(filter.dateCreated) > -1)
-                            && (!filter.selected || item.selected.indexOf(filter.selected) > -1)
-                    });
-                },
+                loadData: function(filter){
+                var deferred = $.Deferred();
+                $.ajax({
+
+                    url: "/oracom/loadPersons",
+                    data:filter,
+                    cache:true,
+                    dataType: "json"
+
+
+                }).done(function(response){
+                    response.data=response.data;
+                    response.itemsCount = response.len;
+
+                  
+                    deferred.resolve(response);
+
+
+                });
+
+                return deferred.promise();
+
+            },
+
                 insertItem: function (item) {
                     return $.ajax({
                         type: "POST",
@@ -236,4 +238,3 @@ $(function () {
     });
 
 
-});

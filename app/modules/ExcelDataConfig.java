@@ -23,6 +23,7 @@ import static org.hibernate.util.ConfigHelper.getResourceAsStream;
 public class ExcelDataConfig {
     public static HSSFWorkbook wb;
     public static HSSFSheet sheet;
+    private static   EbeanServer server = Ebean.getServer(null);
 
     public static String[] sheetColumns = {"Company_Name", "Company_Category", "Company_Subcategory", "Email_1", "Email_2",
             "Phone_1", "Phone_2", "Website", "County", "Town", "Street_Name", "Building", "Latitude",
@@ -96,7 +97,7 @@ public class ExcelDataConfig {
 
          }
      
-           EbeanServer server = Ebean.getServer(null);
+          
 
         try {
             Transaction transaction=server.beginTransaction();
@@ -125,6 +126,7 @@ public class ExcelDataConfig {
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
         XSSFRow row;
+        List<Leaders> oldleader=new ArrayList<>();
         for (int i = 1; i < sheet.getLastRowNum(); i++) {  //points to the starting of excel i.e excel first row
             Leaders leader = new Leaders(
             getSheetvalue(sheet.getRow(i).getCell(0)),
@@ -141,7 +143,8 @@ public class ExcelDataConfig {
 
                 );
 
-            leader.save();
+            
+            oldleader.add(leader);
 
             //log the data
             BranchesController.logger.info("####################################################UPLOADED BY {} ", createdBy);
@@ -150,6 +153,12 @@ public class ExcelDataConfig {
         }
 
         try {
+
+            Transaction transaction=server.beginTransaction();
+            transaction.setBatchMode(true);
+            transaction.setBatchSize(5000);
+            server.saveAll(oldleader);
+            transaction.commit();
 
             file.close();
 
@@ -170,7 +179,11 @@ public class ExcelDataConfig {
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook(file);
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
+        List<HeadOffice> hdf=new ArrayList<>();
+
+
         XSSFRow row;
+
         for (int i = 1; i < sheet.getLastRowNum(); i++) {  //points to the starting of excel i.e excel first row
              HeadOffice person = new HeadOffice(
             getSheetvalue(sheet.getRow(i).getCell(0)),
@@ -188,13 +201,19 @@ public class ExcelDataConfig {
             getSheetvalue(sheet.getRow(i).getCell(12))
             );
 
-            person.save();
+            //person.save();
+            hdf.add(person);
 
             // logger.info("####################################################APPROVED STATUS {} ", website);
 
         }
 
         try {
+            Transaction transaction=server.beginTransaction();
+            transaction.setBatchMode(true);
+            transaction.setBatchSize(5000);
+            server.saveAll(hdf);
+            transaction.commit();
 
             file.close();
 
@@ -216,6 +235,7 @@ public class ExcelDataConfig {
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
         XSSFRow row;
+        List<CorporateEmails> oldCpemails=new ArrayList<>();
         for (int i = 1; i < sheet.getLastRowNum(); i++) {  //
 
             CorporateEmails corporateEmails = new CorporateEmails(
@@ -224,14 +244,21 @@ public class ExcelDataConfig {
             getSheetvalue(sheet.getRow(i).getCell(2)),
             getSheetvalue(sheet.getRow(i).getCell(3)),
             getSheetvalue(sheet.getRow(i).getCell(4)));
+            oldCpemails.add(corporateEmails);
 
-            corporateEmails.save();
+            //corporateEmails.save();
 
             // logger.info("####################################################APPROVED STATUS {} ", website);
 
         }
 
         try {
+
+            Transaction transaction=server.beginTransaction();
+            transaction.setBatchMode(true);
+            transaction.setBatchSize(5000);
+            server.saveAll(oldCpemails);
+            transaction.commit();
 
             file.close();
 
@@ -254,6 +281,8 @@ public class ExcelDataConfig {
         
 
 
+         List<IndividualEmails> emails=new ArrayList<>();
+
          for (int i = 1; i < sheet.getLastRowNum(); i++) { 
             IndividualEmails individualEmails = new IndividualEmails(
             getSheetvalue(sheet.getRow(i).getCell(0)),
@@ -262,13 +291,19 @@ public class ExcelDataConfig {
             getSheetvalue(sheet.getRow(i).getCell(3)),
             getSheetvalue(sheet.getRow(i).getCell(4)));
 
-            individualEmails.save();
+            //individualEmails.save();
+            emails.add(individualEmails);
 
             // logger.info("####################################################APPROVED STATUS {} ", website);
 
         }
 
         try {
+            Transaction transaction=server.beginTransaction();
+            transaction.setBatchMode(true);
+            transaction.setBatchSize(5000);
+            server.saveAll(emails);
+            transaction.commit();
 
             file.close();
 
@@ -288,6 +323,8 @@ public class ExcelDataConfig {
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook(file);
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
 
+        List<Phones> phones=new ArrayList<>();
+
         XSSFRow row;
         for (int i = 1; i < sheet.getLastRowNum(); i++) {  //points to the starting of excel i.e excel first row
             
@@ -299,13 +336,19 @@ public class ExcelDataConfig {
             getSheetvalue(sheet.getRow(i).getCell(4))
                 );
 
-            phoneNumbers.save();
+            //phoneNumbers.save();
+            phones.add(phoneNumbers);
 
             // logger.info("####################################################APPROVED STATUS {} ", website);
 
         }
 
         try {
+            Transaction transaction=server.beginTransaction();
+            transaction.setBatchMode(true);
+            transaction.setBatchSize(5000);
+            server.saveAll(phones);
+            transaction.commit();
 
             file.close();
 
@@ -324,6 +367,8 @@ public class ExcelDataConfig {
 
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook(file);
         XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
+        List<PersonsByRegion> psg=new ArrayList<>();
+
 
         XSSFRow row;
         for (int i = 1; i < sheet.getLastRowNum(); i++) {  //points to the starting of excel i.e excel first row
@@ -342,13 +387,19 @@ public class ExcelDataConfig {
             getSheetvalue(sheet.getRow(i).getCell(11))
             );
 
-            persons.save();
+           // persons.save();
+            psg.add(persons);
 
             // logger.info("####################################################APPROVED STATUS {} ", website);
 
         }
 
         try {
+            Transaction transaction=server.beginTransaction();
+            transaction.setBatchMode(true);
+            transaction.setBatchSize(5000);
+            server.saveAll(psg);
+            transaction.commit();
 
             file.close();
 

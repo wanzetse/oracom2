@@ -117,23 +117,36 @@ $(function () {
         pageButtonCount: 5,
         deleteConfirm: "Do you really want to delete profile?",
         controller: {
-            loadData: function (filter) {
-                var d = $.Deferred();
-                return $.ajax({
-                    type: "GET",
+               
+
+                loadData: function(filter){
+                var deferred = $.Deferred();
+                $.ajax({
+
                     url: "/oracom/ProfilesMaster",
-                  //  dataType: "json",
-                    data: filter
-                }).done(function (response) {
+                    data:filter,
+                    cache:true,
+                    dataType: "json"
 
-                    return $.grep(response, function (item) {
 
-                        return (!filter.RoleName || item.RoleName.indexOf(filter.RoleName) > -1)
+                }).done(function(response){
+                    response.data=response.data;
+                    response.itemsCount =response.len;
 
-                    });
+                  
+                    deferred.resolve(response);
+
+
                 });
 
+                return deferred.promise();
+
             },
+
+
+
+
+
             insertItem: function (item) {
                 return $.ajax({
                     type: "POST",
