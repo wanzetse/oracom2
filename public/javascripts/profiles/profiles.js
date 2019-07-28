@@ -112,6 +112,7 @@ $(function () {
         sorting: true,
         paging: true,
         autoload: true,
+        pageLoading:true,
         insertRowLocation: "top",
         pageSize: 10,
         pageButtonCount: 5,

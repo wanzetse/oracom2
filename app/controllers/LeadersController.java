@@ -59,6 +59,7 @@ public class LeadersController extends Controller {
     private Marker notifyAdmin = MarkerFactory.getMarker("NOTIFY_ADMIN");
 
     private static List<Leaders> leaders;
+    private static int len;
 
 
     @Inject
@@ -392,34 +393,98 @@ public class LeadersController extends Controller {
 
     // @Security.Authenticated(Secured.class)
     public CompletionStage<Result> loadLeaders() {
+/*
+oracom/load_Leaders?selectedLeader=&Full_Names=&Position=&Status=
+&leaderCounty=&leaderConstituency=&leaderWard=
+&leaderComments=&leaderCreatedBy=&leaderDateCreated=&pageIndex=1&pageSize=50
+*/
+ DynamicForm rq = formFactory.form().bindFromRequest();
+        //json object to send back parameters
+        ObjectNode node=Json.newObject();
+        //array of string to hold received parameters
+        String[] params=new String[13];
+        params[1]=rq.get("Full_Names");
+        params[2]=rq.get("Position");
+        params[3]=rq.get("Status");
+        params[4]=rq.get("leaderCounty");
+        params[5]=rq.get("leaderConstituency");
+        params[6]=rq.get("leaderWard");
+        params[7]=rq.get("leaderComments");
+        params[8]=rq.get("leaderCreatedBy");
+        params[9]=rq.get("leaderDateCreated");
+        
+        params[10]=rq.get("pageIndex");
+        params[11]=rq.get("pageSize");
 
-        Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+        node.put("data",QueryLeaders(params));
+        node.put("len",len);
+
+        //Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
 
         logger.info("Loading branches....for user {} and Branch {} ", session().get("Username"), session().get("branch"));
 
-        return QueryLeaders().thenApplyAsync(leaders -> ok(Json.toJson(leaders)), myEc);
+       return CompletableFuture.completedFuture(ok(node));
     }
 
 
-    public static CompletionStage<List<Leaders>> QueryLeaders() {
-
-        String userRoleName = session().get("RoleName");
-        int count = Leaders.finder.all().size();
-
+   private  JsonNode QueryLeaders(String[] otherParams) {
 /*
-        if (count != 0) {
-            if (!userRoleName.equals("user")) {
-
-                branches = Branch.finder.all().subList(0, 100);
-
-            }
-
-        }
+oracom/load_Leaders?selectedLeader=&Full_Names=&Position=&Status=
+&leaderCounty=&leaderConstituency=&leaderWard=
+&leaderComments=&leaderCreatedBy=&leaderDateCreated=&pageIndex=1&pageSize=50
 */
-        leaders = Leaders.finder.all();
+        String userRoleName = session().get("RoleName");
+        //int count = Leaders.finder.all().size();
+
+
+        String Full_Names=otherParams[1];
+String Position=otherParams[2];
+String Status=otherParams[3];
+String leaderCounty=otherParams[4];
+String leaderConstituency=otherParams[5];
+String leaderWard=otherParams[6];
+String leaderComments=otherParams[7];
+String leaderCreatedBy=otherParams[8];
+String leaderDateCreated=otherParams[9];
+
+
+int pageIndex=Integer.parseInt(otherParams[10]);
+int pageSize=Integer.parseInt(otherParams[11]);
+
+
+
+        len =Leaders.finder.query().where()
+        .ilike("Full_Names", "%"+Full_Names+"%")
+        .ilike("Position", "%"+Position+"%")
+        .ilike("Status", "%"+Status+"%")
+        .ilike("leaderCounty", "%"+leaderCounty+"%")
+        .ilike("leaderConstituency", "%"+leaderConstituency+"%")
+        .ilike("leaderWard", "%"+leaderWard+"%")
+        .ilike("leaderComments", "%"+leaderComments+"%")
+        .ilike("leaderCreatedBy", "%"+leaderCreatedBy+"%")
+        .ilike("leaderDateCreated", "%"+leaderDateCreated+"%")
+        
+        .findCount();
+
+
+        leaders = Leaders.finder.query().where()
+        .ilike("Full_Names", "%"+Full_Names+"%")
+        .ilike("Position", "%"+Position+"%")
+        .ilike("Status", "%"+Status+"%")
+        .ilike("leaderCounty", "%"+leaderCounty+"%")
+        .ilike("leaderConstituency", "%"+leaderConstituency+"%")
+        .ilike("leaderWard", "%"+leaderWard+"%")
+        .ilike("leaderComments", "%"+leaderComments+"%")
+        .ilike("leaderCreatedBy", "%"+leaderCreatedBy+"%")
+        .ilike("leaderDateCreated", "%"+leaderDateCreated+"%")
+        
+        .setFirstRow(pageIndex)
+        .setMaxRows(pageSize)
+        .findPagedList()
+        .getList();
         logger.info("+++++++++++++++++++++++++++++++++++++++++++ RoleName |{}|", userRoleName);
 
-        return CompletableFuture.completedFuture(leaders);
+        return Json.toJson(leaders);
 
     }
 

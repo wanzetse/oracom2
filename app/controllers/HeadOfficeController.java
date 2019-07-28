@@ -48,6 +48,7 @@ public class HeadOfficeController extends Controller {
     public static String body;
     public static String SMSbody;
     private SendEmail sendEmail;
+    private static int len;
     @Inject
     private FormFactory formFactory;
 
@@ -179,18 +180,116 @@ public class HeadOfficeController extends Controller {
 
     public CompletionStage<Result> loadHeadOffice() {
 
-        Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+        //Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+
+
+/*
+
+/oracom/loadPersons?selected=&Company=&Full_Names=&Email_1=&Email_2=&Phone_1=
+&Phone_2=&Position=&SideHustle=&Sex=0
+&Status=&Comments=&CreatedBy=&dateCreated=&pageIndex=1&pageSize=50
+*/
+
+         DynamicForm rq = formFactory.form().bindFromRequest();
+        //json object to send back parameters
+        ObjectNode node=Json.newObject();
+        //array of string to hold received parameters
+        String[] params=new String[16];
+        params[1]=rq.get("Company");
+        params[2]=rq.get("Full_Names");
+        params[3]=rq.get("Email_1");
+        params[4]=rq.get("Email_2");
+        params[5]=rq.get("Phone_1");
+        params[6]=rq.get("Phone_2");
+        params[7]=rq.get("Position");
+        params[8]=rq.get("SideHustle");
+        params[9]=rq.get("Sex");
+        params[10]=rq.get("Status");
+        params[11]=rq.get("Comments");
+        params[12]=rq.get("CreatedBy");
+        params[13]=rq.get("dateCreated");
+        
+        params[14]=rq.get("pageIndex");
+        params[15]=rq.get("pageSize");
+
+        node.put("data",QueryHeadOffice(params));
+        node.put("len",len);
 
         logger.info("Loading branches....for user {} and Branch {} ", session().get("Username"), session().get("branch"));
 
-        return QueryHeadOffice().thenApplyAsync(persons -> ok(Json.toJson(persons)), myEc);
+       return CompletableFuture.completedFuture(ok(node));
     }
 
-    private CompletionStage<List<HeadOffice>> QueryHeadOffice() {
+ private  JsonNode QueryHeadOffice(String[] otherParams) {
         //  List<HeadOffice> persons = HeadOffice.finder.query().where().eq("Deleted", Boolean.FALSE).findList();
-        List<HeadOffice> persons = HeadOffice.finder.all();
+        
+/*
 
-        return CompletableFuture.completedFuture(persons);
+/oracom/loadPersons?selected=&Company=&Full_Names=&Email_1=&Email_2=&Phone_1=
+&Phone_2=&Position=&SideHustle=&Sex=0
+&Status=&Comments=&CreatedBy=&dateCreated=&pageIndex=1&pageSize=50
+*/
+String Company=otherParams[1];
+String Full_Names=otherParams[2];
+String Email_1=otherParams[3];
+String Email_2=otherParams[4];
+String Phone_1=otherParams[5];
+String Phone_2=otherParams[6];
+String Position=otherParams[7];
+String SideHustle=otherParams[8];
+String Sex=otherParams[9];
+String Status=otherParams[10];
+String Comments=otherParams[11];
+String CreatedBy=otherParams[12];
+String dateCreated=otherParams[13];
+int pageIndex=Integer.parseInt(otherParams[14]);
+int pageSize=Integer.parseInt(otherParams[15]);
+
+len =HeadOffice.finder.query().where()
+        
+        .ilike("Company", "%"+Company+"%")
+        .ilike("Full_Names", "%"+Full_Names+"%")
+        .ilike("Email_1", "%"+Email_1+"%")
+        .ilike("Company", "%"+Company+"%")
+        .ilike("Full_Names", "%"+Full_Names+"%")
+        .ilike("Email_1", "%"+Email_1+"%")
+        .ilike("Email_2", "%"+Email_2+"%")
+        .ilike("Phone_1", "%"+Phone_1+"%")
+        .ilike("Phone_2", "%"+Phone_2+"%")
+        .ilike("Position", "%"+Position+"%")
+        .ilike("SideHustle", "%"+SideHustle+"%")
+        .ilike("Sex", "%"+Sex+"%")
+        .ilike("Status", "%"+Status+"%")
+        .ilike("Comments", "%"+Comments+"%")
+        .ilike("dateCreated", "%"+dateCreated+"%")
+        .ilike("CreatedBy", "%"+CreatedBy+"%")
+        .findCount();
+
+ List<HeadOffice> persons=HeadOffice.finder.query().where()
+        
+         .ilike("Company", "%"+Company+"%")
+        .ilike("Full_Names", "%"+Full_Names+"%")
+        .ilike("Email_1", "%"+Email_1+"%")
+        .ilike("Company", "%"+Company+"%")
+        .ilike("Full_Names", "%"+Full_Names+"%")
+        .ilike("Email_1", "%"+Email_1+"%")
+        .ilike("Email_2", "%"+Email_2+"%")
+        .ilike("Phone_1", "%"+Phone_1+"%")
+        .ilike("Phone_2", "%"+Phone_2+"%")
+        .ilike("Position", "%"+Position+"%")
+        .ilike("SideHustle", "%"+SideHustle+"%")
+        .ilike("Sex", "%"+Sex+"%")
+        .ilike("Status", "%"+Status+"%")
+        .ilike("Comments", "%"+Comments+"%")
+        .ilike("dateCreated", "%"+dateCreated+"%")
+        .ilike("CreatedBy", "%"+CreatedBy+"%")
+        .setFirstRow(pageIndex)
+        .setMaxRows(pageSize)
+        .findPagedList()
+        .getList();
+
+
+          return Json.toJson(persons);
     }
 
     @BodyParser.Of(MyMultipartFormDataBodyParserController.class)

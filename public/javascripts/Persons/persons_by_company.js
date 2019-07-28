@@ -304,7 +304,7 @@ $(function () {
                 var deferred = $.Deferred();
                 $.ajax({
 
-                    url: "/oracom/loadPersons"
+                    url: "/oracom/loadPersons",
                     data:filter,
                     cache:true,
                     dataType: "json"

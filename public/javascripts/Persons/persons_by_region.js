@@ -187,6 +187,56 @@ $(function () {
             deleteConfirm: "Do you really want to delete Person ?",
             headerRowClass: 'table-green-header',
 
+            
+            controller: {
+                        loadData: function(filter){
+                var deferred = $.Deferred();
+                $.ajax({
+
+                    url: "/oracom/loadPersonsByRegion",
+                    data:filter,
+                    cache:true,
+                    dataType: "json"
+
+
+                }).done(function(response){
+                    response.data=response.data;
+                    response.itemsCount =response.len;
+
+                  
+                    deferred.resolve(response);
+
+
+                });
+
+                return deferred.promise();
+
+            },
+                insertItem: function (item) {
+                    return $.ajax({
+                        type: "POST",
+                        url: "/oracom/savePersonByRegion",
+                        data: item,
+                        success: function (data) {
+                            $("#jsGrid").jsGrid("refresh");
+                        }
+                    });
+                },
+                updateItem: function (item) {
+                    return $.ajax({
+                        type: "PUT",
+                        url: " /oracom/editPersonByRegion",
+                        data: item
+                    });
+                },
+                deleteItem: function (item) {
+                    return $.ajax({
+                        type: "DELETE",
+                        url: "/oracom/postDeleteByRegion",
+                        data: item
+                    });
+                }
+            },
             fields: [
                 {type: "control"},
 
@@ -300,55 +350,6 @@ $(function () {
                 //////Updates/////
                 {type: "control"}
             ],
-            controller: {
-                        loadData: function(filter){
-                var deferred = $.Deferred();
-                $.ajax({
-
-                    url: "/oracom/loadPersonsByRegion"
-                    data:filter,
-                    cache:true,
-                    dataType: "json"
-
-
-                }).done(function(response){
-                    response.data=response.data;
-                    response.itemsCount =response.len;
-
-                  
-                    deferred.resolve(response);
-
-
-                });
-
-                return deferred.promise();
-
-            },
-                insertItem: function (item) {
-                    return $.ajax({
-                        type: "POST",
-                        url: "/oracom/savePersonByRegion",
-                        data: item,
-                        success: function (data) {
-                            $("#jsGrid").jsGrid("refresh");
-                        }
-                    });
-                },
-                updateItem: function (item) {
-                    return $.ajax({
-                        type: "PUT",
-                        url: " /oracom/editPersonByRegion",
-                        data: item
-                    });
-                },
-                deleteItem: function (item) {
-                    return $.ajax({
-                        type: "DELETE",
-                        url: "/oracom/postDeleteByRegion",
-                        data: item
-                    });
-                }
-            }
 
         });
     });

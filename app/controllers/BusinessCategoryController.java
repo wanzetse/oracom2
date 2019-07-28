@@ -45,6 +45,7 @@ public class BusinessCategoryController extends Controller {
     public static String senderIdUsername;
     public static String senderIdPassword;
     public static String SMSbody;
+    private static int len;
 
 
     @Inject
@@ -283,19 +284,80 @@ public class BusinessCategoryController extends Controller {
 
 
     public CompletionStage<Result> loadPhones() {
+         /*
 
-        Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+        /oracom/load_phones?phoneIsSelected=&individual_phone=&individualPhone_status=
+        &individualPhone_Comments=
+        &CreateDate=&CreatedBy=&pageIndex=1&pageSize=10 
+        */
+
+       //get form parameters
+        DynamicForm rq = formFactory.form().bindFromRequest();
+        //json object to send back parameters
+        ObjectNode node=Json.newObject();
+        //array of string to hold received parameters
+        String[] params=new String[8];
+        params[1]=rq.get("individual_phone");
+        params[2]=rq.get("individualPhone_status");
+        params[3]=rq.get("individualPhone_Comments");
+        params[4]=rq.get("CreateDate");
+        params[5]=rq.get("CreatedBy");
+        params[6]=rq.get("pageIndex");
+        params[7]=rq.get("pageSize");
+
+        node.put("data",QueryPhones(params));
+        node.put("len",len);
+
+        //Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
 
         logger.info("Loading businesses....for user {} and Branch {} ", session().get("Username"), session().get("branch"));
 
-        return QueryPhones().thenApplyAsync(businessCategories -> ok(Json.toJson(businessCategories)), myEc);
-    }
+      return CompletableFuture.completedFuture(ok(node));
+       }
 
 
-    private CompletionStage<List<Phones>> QueryPhones() {
-        List<Phones> phonesList = Phones.finder.all();
+    private  JsonNode QueryPhones(String[] otherParams) {
+        /*
 
-        return CompletableFuture.completedFuture(phonesList);
+        /oracom/load_phones?phoneIsSelected=&individual_phone=&individualPhone_status=
+        &individualPhone_Comments=
+        &CreateDate=&CreatedBy=&pageIndex=1&pageSize=10 
+        */
+        
+
+
+String individual_phone=otherParams[1];
+String individualPhone_status=otherParams[2];
+String individualPhone_Comments=otherParams[3];
+String CreateDate=otherParams[4];
+String CreatedBy=otherParams[5];
+
+int pageIndex=Integer.parseInt(otherParams[6]);
+int pageSize=Integer.parseInt(otherParams[7]);
+
+len = Phones.finder.query().where()
+        .ilike("individual_phone", "%"+individual_phone+"%")
+        .ilike("individualPhone_status", "%"+individualPhone_status+"%")
+        .ilike("individualPhone_Comments", "%"+individualPhone_Comments+"%")
+        .ilike("CreateDate", "%"+CreateDate+"%")
+        .ilike("CreatedBy", "%"+CreatedBy+"%")
+        
+        .findCount();
+
+ List<Phones> phonesList=Phones.finder.query().where()
+        .ilike("individual_phone", "%"+individual_phone+"%")
+        .ilike("individualPhone_status", "%"+individualPhone_status+"%")
+        .ilike("individualPhone_Comments", "%"+individualPhone_Comments+"%")
+        .ilike("CreateDate", "%"+CreateDate+"%")
+        .ilike("CreatedBy", "%"+CreatedBy+"%")
+        
+        .setFirstRow(pageIndex)
+        .setMaxRows(pageSize)
+        .findPagedList()
+        .getList();
+
+
+          return Json.toJson(phonesList);
     }
 
 }

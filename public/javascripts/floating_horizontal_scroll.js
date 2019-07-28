@@ -1,1 +1,1 @@
-$(".overflow-panel").floatingScroll();
+//$(".overflow-panel").floatingScroll();

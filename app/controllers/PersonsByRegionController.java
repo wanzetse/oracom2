@@ -46,6 +46,7 @@ public class PersonsByRegionController extends Controller {
     public static String emailPassword;
     public static String subject;
     public static String body;
+    private static int len;
 
     public static String SENDER_ID;
     public static String senderIdUsername;
@@ -279,19 +280,104 @@ public class PersonsByRegionController extends Controller {
 
 
     public CompletionStage<Result> loadPersonsByRegions() {
+        /*
+/oracom/loadPersonsByRegion?personSelected=&person_phone=&person_Surname=
+&person_Othernames=&person_CountyName=&person_Constituency_name=
+&person_WardName=&person_PollingName=&person_Email_address=&person_Gender=0
+&person_comment=&person_CreatedBy=&person_CreateDate=&pageIndex=1&pageSize=50
+*/
+ DynamicForm rq = formFactory.form().bindFromRequest();
+        //json object to send back parameters
+        ObjectNode node=Json.newObject();
+        //array of string to hold received parameters
+        String[] params=new String[15];
+        params[1]=rq.get("person_phone");
+        params[2]=rq.get("person_Surname");
+        params[3]=rq.get("person_Othernames");
+        params[4]=rq.get("person_CountyName");
+        params[5]=rq.get("person_Constituency_name");
+        params[6]=rq.get("person_WardName");
+        params[7]=rq.get("person_PollingName");
+        params[8]=rq.get("person_Email_address");
+        params[9]=rq.get("person_Gender");
+        params[10]=rq.get("person_comment");
+        
+        params[11]=rq.get("person_CreatedBy");
+        params[12]=rq.get("person_CreateDate");
+        
+        params[13]=rq.get("pageIndex");
+        params[14]=rq.get("pageSize");
 
-        Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+        node.put("data",QueryPersonsByRegions(params));
+        node.put("len",len);
 
         logger.info("Loading businesses....for user {} and Branch {} ", session().get("Username"), session().get("branch"));
 
-        return QueryPersonsByRegions().thenApplyAsync(personsByRegions -> ok(Json.toJson(personsByRegions)), myEc);
-    }
+   
+       return CompletableFuture.completedFuture(ok(node));
+        }
 
 
-    private CompletionStage<List<PersonsByRegion>> QueryPersonsByRegions() {
-        List<PersonsByRegion> personsByRegions = PersonsByRegion.finder.all();
+    private  JsonNode QueryPersonsByRegions(String[] otherParams) {
+/*
+/oracom/loadPersonsByRegion?personSelected=&person_phone=&person_Surname=
+&person_Othernames=&person_CountyName=&person_Constituency_name=
+&person_WardName=&person_PollingName=&person_Email_address=&person_Gender=0
+&person_comment=&person_CreatedBy=&person_CreateDate=&pageIndex=1&pageSize=50
+*/
+String person_phone=otherParams[1];
+String person_Surname=otherParams[2];
+String person_Othernames=otherParams[3];
+String person_CountyName=otherParams[4];
+String person_Constituency_name=otherParams[5];
+String person_WardName=otherParams[6];
+String person_PollingName=otherParams[7];
+String person_Email_address=otherParams[8];
+String person_Gender=otherParams[9];
+String person_comment=otherParams[10];
+String person_CreatedBy=otherParams[11];
+String person_CreateDate=otherParams[12];
 
-        return CompletableFuture.completedFuture(personsByRegions);
+int pageIndex=Integer.parseInt(otherParams[13]);
+int pageSize=Integer.parseInt(otherParams[14]);
+
+    
+        len =PersonsByRegion.finder.query().where()
+        .ilike("person_phone", "%"+person_phone+"%")
+        .ilike("person_Surname", "%"+person_Surname+"%")
+        .ilike("person_Othernames", "%"+person_Othernames+"%")
+        .ilike("person_CountyName", "%"+person_CountyName+"%")
+        .ilike("person_Constituency_name", "%"+person_Constituency_name+"%")
+        .ilike("person_WardName", "%"+person_WardName+"%")
+        .ilike("person_PollingName", "%"+person_PollingName+"%")
+        .ilike("person_Email_address", "%"+person_Email_address+"%")
+        .ilike("person_Gender", "%"+person_Gender+"%")
+        .ilike("person_comment", "%"+person_comment+"%")
+        .ilike("person_CreatedBy", "%"+person_CreatedBy+"%")
+        .ilike("person_CreateDate", "%"+person_CreateDate+"%")
+        .findCount();
+
+    List<PersonsByRegion> personsByRegions = PersonsByRegion.finder.query().where()
+        
+        .ilike("person_phone", "%"+person_phone+"%")
+        .ilike("person_Surname", "%"+person_Surname+"%")
+        .ilike("person_Othernames", "%"+person_Othernames+"%")
+        .ilike("person_CountyName", "%"+person_CountyName+"%")
+        .ilike("person_Constituency_name", "%"+person_Constituency_name+"%")
+        .ilike("person_WardName", "%"+person_WardName+"%")
+        .ilike("person_PollingName", "%"+person_PollingName+"%")
+        .ilike("person_Email_address", "%"+person_Email_address+"%")
+        .ilike("person_Gender", "%"+person_Gender+"%")
+        .ilike("person_comment", "%"+person_comment+"%")
+        .ilike("person_CreatedBy", "%"+person_CreatedBy+"%")
+        .ilike("person_CreateDate", "%"+person_CreateDate+"%")
+        .setFirstRow(pageIndex)
+        .setMaxRows(pageSize)
+        .findPagedList()
+        .getList();
+
+
+          return Json.toJson(personsByRegions);
     }
 
 }

@@ -273,7 +273,7 @@ $(function () {
                 var deferred = $.Deferred();
                 $.ajax({
 
-                    url: "/oracom/load_Leaders"
+                    url: "/oracom/load_Leaders",
                     data:filter,
                     cache:true,
                     dataType: "json"
