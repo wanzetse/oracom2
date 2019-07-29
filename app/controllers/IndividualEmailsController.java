@@ -59,6 +59,7 @@ public class IndividualEmailsController extends Controller {
     private Marker notifyAdmin = MarkerFactory.getMarker("NOTIFY_ADMIN");
 
     private static List<IndividualEmails> individualEmailsList;
+    private static int len;
 
 
     @Inject
@@ -379,34 +380,79 @@ public class IndividualEmailsController extends Controller {
 
     // @Security.Authenticated(Secured.class)
     public CompletionStage<Result> loadIndividualEmails() {
+/*
 
-        Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+/oracom/loadIndividualEmails?individualSelected=&individualEmail=
+&individualDescription=&individualComments=
+&individualCreatedBy=&individualDateCreated=&pageIndex=1&pageSize=50
+
+
+*/
+DynamicForm rq = formFactory.form().bindFromRequest();
+        //json object to send back parameters
+        ObjectNode node=Json.newObject();
+        //array of string to hold received parameters
+        String[] params=new String[13];
+        params[1]=rq.get("individualEmail");
+        params[2]=rq.get("individualDescription");
+        params[3]=rq.get("individualComments");
+        params[4]=rq.get("individualCreatedBy");
+        params[5]=rq.get("individualDateCreated");
+        params[6]=rq.get("pageIndex");
+        params[7]=rq.get("pageSize");
+        node.put("data",QueryIndividualEmails(params));
+        node.put("len",len);
+        //Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
 
         logger.info("Loading branches....for user {} and Branch {} ", session().get("Username"), session().get("branch"));
 
-        return QueryIndividualEmails().thenApplyAsync(individualPhoneNumbers -> ok(Json.toJson(individualPhoneNumbers)), myEc);
+   return CompletableFuture.completedFuture(ok(node));
     }
 
 
-    public static CompletionStage<List<IndividualEmails>> QueryIndividualEmails() {
-
-        String userRoleName = session().get("RoleName");
-        int count = IndividualEmails.finder.all().size();
-
+ private  JsonNode QueryIndividualEmails(String[] otherParams) {
 /*
-        if (count != 0) {
-            if (!userRoleName.equals("user")) {
 
-                branches = Branch.finder.all().subList(0, 100);
+/oracom/loadIndividualEmails?individualSelected=&individualEmail=
+&individualDescription=&individualComments=
+&individualCreatedBy=&individualDateCreated=&pageIndex=1&pageSize=50
 
-            }
 
-        }
 */
-        individualEmailsList = IndividualEmails.finder.all();
+        String userRoleName = session().get("RoleName");
+
+String individualEmail=otherParams[1];
+String individualDescription=otherParams[2];
+String individualComments=otherParams[3];
+String individualCreatedBy=otherParams[4];
+String individualDateCreated=otherParams[5];
+int pageIndex=Integer.parseInt(otherParams[6]);
+int pageSize=Integer.parseInt(otherParams[7]);
+
+
+
+        len =IndividualEmails.finder.query().where()
+        .ilike("individualEmail", "%"+individualEmail+"%")
+        .ilike("individualDescription", "%"+individualDescription+"%")
+        .ilike("individualComments", "%"+individualComments+"%")
+        .ilike("individualCreatedBy", "%"+individualCreatedBy+"%")
+        .ilike("individualDateCreated", "%"+individualDateCreated+"%")
+        .findCount();
+
+
+        individualEmailsList =IndividualEmails.finder.query().where()
+        .ilike("individualEmail", "%"+individualEmail+"%")
+        .ilike("individualDescription", "%"+individualDescription+"%")
+        .ilike("individualComments", "%"+individualComments+"%")
+        .ilike("individualCreatedBy", "%"+individualCreatedBy+"%")
+        .ilike("individualDateCreated", "%"+individualDateCreated+"%")
+        .setFirstRow(pageIndex)
+        .setMaxRows(pageSize)
+        .findPagedList()
+        .getList();
         logger.info("+++++++++++++++++++++++++++++++++++++++++++ RoleName |{}|", userRoleName);
 
-        return CompletableFuture.completedFuture(individualEmailsList);
+     return Json.toJson(individualEmailsList);
 
     }
 

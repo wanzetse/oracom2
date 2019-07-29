@@ -477,7 +477,6 @@ int pageSize=Integer.parseInt(otherParams[11]);
         .ilike("leaderComments", "%"+leaderComments+"%")
         .ilike("leaderCreatedBy", "%"+leaderCreatedBy+"%")
         .ilike("leaderDateCreated", "%"+leaderDateCreated+"%")
-        
         .setFirstRow(pageIndex)
         .setMaxRows(pageSize)
         .findPagedList()

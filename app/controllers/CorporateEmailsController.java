@@ -55,6 +55,7 @@ public class CorporateEmailsController extends Controller {
     public static String senderIdUsername;
     public static String senderIdPassword;
     public static String SMSbody;
+    private static int len;
 
     private SendEmail sendEmail;
     private Marker notifyAdmin = MarkerFactory.getMarker("NOTIFY_ADMIN");
@@ -380,34 +381,77 @@ public class CorporateEmailsController extends Controller {
 
     // @Security.Authenticated(Secured.class)
     public CompletionStage<Result> loadCorporateEmails() {
+/*
+/oracom/loadCorporateEmails?selected=&Email=&Description=
+&Comments=&CreatedBy=&dateCreated=&pageIndex=1&pageSize=50
 
-        Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+*/
+        //Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+         DynamicForm rq = formFactory.form().bindFromRequest();
+        //json object to send back parameters
+        ObjectNode node=Json.newObject();
+        //array of string to hold received parameters
+        String[] params=new String[8];
+        params[1]=rq.get("Email");
+        params[2]=rq.get("Description");
+        params[3]=rq.get("Comments");
+        params[4]=rq.get("CreatedBy");
+        params[5]=rq.get("dateCreated");
+        params[6]=rq.get("pageIndex");
+        params[7]=rq.get("pageSize");
+
+        node.put("data",QueryCorporateEmails(params));
+        node.put("len",len);
+
 
         logger.info("Loading branches....for user {} and Branch {} ", session().get("Username"), session().get("branch"));
 
-        return QueryCorporateEmails().thenApplyAsync(individualPhoneNumbers -> ok(Json.toJson(individualPhoneNumbers)), myEc);
-    }
+    return CompletableFuture.completedFuture(ok(node));
+     }
 
 
-    public static CompletionStage<List<CorporateEmails>> QueryCorporateEmails() {
+ private  JsonNode QueryCorporateEmails(String[] otherParams) {
 
         String userRoleName = session().get("RoleName");
-        int count = CorporateEmails.finder.all().size();
 
 /*
-        if (count != 0) {
-            if (!userRoleName.equals("user")) {
+/oracom/loadCorporateEmails?selected=&Email=&Description=
+&Comments=&CreatedBy=&dateCreated=&pageIndex=1&pageSize=50
 
-                branches = Branch.finder.all().subList(0, 100);
-
-            }
-
-        }
 */
-        corporateEmailsList = CorporateEmails.finder.all();
-        logger.info("+++++++++++++++++++++++++++++++++++++++++++ RoleName |{}|", userRoleName);
 
-        return CompletableFuture.completedFuture(corporateEmailsList);
+       
+String Email=otherParams[1];
+String Description=otherParams[2];
+String Comments=otherParams[3];
+String CreatedBy=otherParams[4];
+String dateCreated=otherParams[5];
+int pageIndex=Integer.parseInt(otherParams[6]);
+int pageSize=Integer.parseInt(otherParams[7]);
+
+
+
+        len = CorporateEmails.finder.query().where()
+        .ilike("Email", "%"+Email+"%")
+        .ilike("Description", "%"+Description+"%")
+        .ilike("Comments", "%"+Comments+"%")
+        .ilike("dateCreated", "%"+dateCreated+"%")
+        .findCount();
+
+
+        corporateEmailsList = CorporateEmails.finder.query().where()
+        .ilike("Email", "%"+Email+"%")
+        .ilike("Description", "%"+Description+"%")
+        .ilike("Comments", "%"+Comments+"%")
+        .ilike("dateCreated", "%"+dateCreated+"%")
+        .setFirstRow(pageIndex)
+        .setMaxRows(pageSize)
+        .findPagedList()
+        .getList();
+        logger.info("+++++++++++++++++++++++++++++++++++++++++++ RoleName |{}|", userRoleName);
+        
+
+        return Json.toJson(corporateEmailsList);
 
     }
 
