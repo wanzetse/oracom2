@@ -203,7 +203,7 @@ public class HeadOfficeController extends Controller {
         params[6]=rq.get("Phone_2");
         params[7]=rq.get("Position");
         params[8]=rq.get("SideHustle");
-        params[9]=rq.get("Sex");
+        //params[9]=rq.get("Sex");
         params[10]=rq.get("Status");
         params[11]=rq.get("Comments");
         params[12]=rq.get("CreatedBy");
@@ -278,7 +278,7 @@ len =HeadOffice.finder.query().where()
         .ilike("Phone_2", "%"+Phone_2+"%")
         .ilike("Position", "%"+Position+"%")
         .ilike("SideHustle", "%"+SideHustle+"%")
-        .ilike("Sex", "%"+Sex+"%")
+       // .ilike("Sex", "%"+Sex+"%")
         .ilike("Status", "%"+Status+"%")
         .ilike("Comments", "%"+Comments+"%")
         .ilike("dateCreated", "%"+dateCreated+"%")

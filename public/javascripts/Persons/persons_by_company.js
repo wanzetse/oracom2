@@ -266,13 +266,15 @@ $(function () {
                     title: "Gender",
                     type: "select",
                     width: 5,
-                    items: [
+                    filtering:true
+                   /* items: [
                         {Name: "", Id: 0},
                         {Name: "M", Id: 1},
                         {Name: "F", Id: 2}
                     ],
-                    valueField: "Id",
+                    valueField: "Name",
                     textField: "Name"
+                    */
 
                 }, {
                     name: "Status",

@@ -318,22 +318,23 @@ $(function () {
                     type: "select",
                     width: 90,
                     //validate: "required",
-                    filtering: true,
-                    items: [
+                    filtering: true
+                  /*  items: [
                         {Name: "", Id: 0},
                         {Name: "M", Id: 1},
                         {Name: "F", Id: 1}
 
                     ],
                     valueField: "Id", textField: "Name"
+                    */
 
                 },
                 {
                     name: "person_comment",
-                    title: "Gender",
+                    title: "Comment",
                     type: "text",
                     width: 150,
-                    filtering: true,
+                    filtering: true
                     // validate: "required"
                 },
 
