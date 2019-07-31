@@ -115,15 +115,19 @@ public class PersonsByRegionController extends Controller {
 
         } else {
             result.put("result", "Success!");
-
+            try{
             SendSms.sendSMS(SENDER_ID, senderIdUsername, senderIdPassword, SMSbody);
-
-
             String subject = "RE: HEALTH CHECK " + "\n";
             String body = session().get("Username") + " Sent bulk SMS:  on " + HeadOfficeController.dateTimeFormatter.format(HeadOfficeController.currentDateTime) + " and received \t RESPONSE: " + result.get("result");
             SendEmail.sendHealthCheckEmail(subject, body);
 
             logger.info("+++++++++++++++++++++++++++++++++++++++BULK SMS |{}|", SMSbody);
+            }catch(Exception e){
+           result.put("result", "No internet Connection");
+           e.printStackTrace();
+
+            }
+           
         }
         return CompletableFuture.completedFuture(ok(result));
     }
@@ -191,14 +195,18 @@ public class PersonsByRegionController extends Controller {
         }
 
         result.put("result", "Successful!");
-
+try{
         sendEmail = new SendEmail();
         sendEmail.sendBulkEmail(from, emailPassword, subject, body);
 
         logger.info("-----------------------------------------------Subject |{}| Body |{}|", subject, body);
 
-        return CompletableFuture.completedFuture(redirect(routes.BranchesController.showBranches()));
-    }
+}catch(Exception e){
+   result.put("result","No Internet Connection");
+     e.printStackTrace();
+}
+     return CompletableFuture.completedFuture(ok(result));
+      }
 
 
     public Result editPersonByRegion() {

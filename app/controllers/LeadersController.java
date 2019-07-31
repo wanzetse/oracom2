@@ -156,14 +156,19 @@ public class LeadersController extends Controller {
         }
 
         result.put("result", "Successful!");
-
+try{
         sendEmail = new SendEmail();
         sendEmail.sendBulkEmail(from, emailPassword, subject, body);
 
         logger.info("-----------------------------------------------Subject |{}| Body |{}|", subject, body);
 
-        return CompletableFuture.completedFuture(redirect(routes.BranchesController.showBranches()));
-    }
+    
+}catch(Exception e){
+    result.put("result","No Internet Connection");
+    e.printStackTrace();
+}
+return CompletableFuture.completedFuture(ok(result));
+     }
 
     private long operateOnTempFile(File file) throws IOException {
         final long size = Files.size(file.toPath());

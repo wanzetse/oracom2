@@ -163,7 +163,7 @@ public class IndividualPhoneNumberController extends Controller {
 
         logger.info("-----------------------------------------------Subject |{}| Body |{}|", subject, body);
 
-        return CompletableFuture.completedFuture(redirect(routes.BranchesController.showBranches()));
+   return CompletableFuture.completedFuture(ok(result));
     }
 
     private long operateOnTempFile(File file) throws IOException {

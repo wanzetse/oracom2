@@ -42,7 +42,7 @@ $(document).ready(function () {
                     swal("Please fill all the fields", "Please write an Email", "warning");
                 } else {
                     indeterminateProgress.end();
-                    swal("Error", "Please try again!", "error");
+                    swal("Error", json.result, "error");
                 }
 
             }

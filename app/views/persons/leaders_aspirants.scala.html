@@ -46,7 +46,7 @@
                 <div class="beefup__body">
                     <div class="form-group">
 
-                    @helper.form(action = routes.LeadersController.sendEmail(), 'id -> "emailForm", 'method -> "post") {
+                    @helper.form(action = routes.LeadersController.sendEmail(), 'id -> "emailForm") {
 
                         <div class="row margin">
                             <div class="input-field col s12">
@@ -96,7 +96,7 @@
                 <div class="beefup__body">
                     <div class="form-group">
 
-                    @helper.form(action = routes.LeadersController.sendBulkSMS(), 'id -> "smsForm", 'method -> "post") {
+                    @helper.form(action = routes.LeadersController.sendBulkSMS(), 'id -> "smsForm") {
 
                         <div class="row margin">
                             <div class="input-field col s12">

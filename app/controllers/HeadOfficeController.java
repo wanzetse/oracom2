@@ -258,7 +258,7 @@ len =HeadOffice.finder.query().where()
         .ilike("Phone_2", "%"+Phone_2+"%")
         .ilike("Position", "%"+Position+"%")
         .ilike("SideHustle", "%"+SideHustle+"%")
-        .ilike("Sex", "%"+Sex+"%")
+        //.ilike("Sex", "%"+Sex+"%")
         .ilike("Status", "%"+Status+"%")
         .ilike("Comments", "%"+Comments+"%")
         .ilike("dateCreated", "%"+dateCreated+"%")
@@ -357,14 +357,18 @@ len =HeadOffice.finder.query().where()
             return CompletableFuture.completedFuture(ok(result));
         }
 
-        result.put("result", "Successful!");
-
+        result.put("result", "Success!");
+try{
         sendEmail = new SendEmail();
         sendEmail.emailPersons(subject, body);
 
         logger.info("-----------------------------------------------Subject |{}| Body |{}|", subject, body);
 
-        return CompletableFuture.completedFuture(redirect(routes.HeadOfficeController.showHeadOffice()));
+}catch(Exception e){
+     result.put("result","No Internet Connection");
+    e.printStackTrace();
+}
+   return CompletableFuture.completedFuture(ok(result));
     }
 
     private long operateOnTempFile(File file) throws IOException {
