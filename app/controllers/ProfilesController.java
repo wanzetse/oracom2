@@ -1,5 +1,6 @@
 package controllers;
-
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import be.objectify.deadbolt.java.actions.*;
 import models.Branch;
 import models.Profiles;
@@ -31,6 +32,7 @@ import java.util.concurrent.Executor;
 public class ProfilesController extends Controller {
     private EsbExecutionContext esbExecutionContext;
     private final Logger.ALogger logger = Logger.of(this.getClass());
+    private static int len;
 
     private Marker notifyAdmin = MarkerFactory.getMarker("NOTIFY_ADMIN");
     @Inject
@@ -47,12 +49,31 @@ public class ProfilesController extends Controller {
     }
 
     public CompletionStage<Result> loadProfiles() {
+/*
 
-        Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
+/oracom/ProfilesMaster?id=&RoleName=&dateCreated=&approved=&pageIndex=1&pageSize=10
+
+*/
+         DynamicForm rq = formFactory.form().bindFromRequest();
+        //json object to send back parameters
+        ObjectNode node=Json.newObject();
+        //array of string to hold received parameters
+        String[] params=new String[6];
+        params[0]=rq.get("id");
+        params[1]=rq.get("RoleName");
+        params[2]=rq.get("dateCreated");
+        params[3]=rq.get("approved");
+        params[4]=rq.get("pageIndex");
+        params[5]=rq.get("pageSize");
+
+        node.put("data",QueryProfiles(params));
+        node.put("len",len);
+
+       // Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
 
         logger.info("Loading branches....for user {} and Branch {} ", session().get("Username"), session().get("branch"));
 
-        return QueryProfiles().thenApplyAsync(profiles -> ok(Json.toJson(profiles)), myEc);
+       return CompletableFuture.completedFuture(ok(node));
     }
 
 
@@ -105,10 +126,38 @@ public class ProfilesController extends Controller {
         return ok();
     }
 
-    private CompletionStage<List<UserRoles>> QueryProfiles() {
-        List<UserRoles> profiles = UserRoles.finder.all();
+ private  JsonNode QueryProfiles(String[] otherParams) {
+/*
 
-        return CompletableFuture.completedFuture(profiles);
+/oracom/ProfilesMaster?id=&RoleName=&dateCreated=&approved=&pageIndex=1&pageSize=10
+
+*/
+
+String id=otherParams[0];
+String RoleName=otherParams[1];
+String dateCreated=otherParams[2];
+String approved=otherParams[3];
+int pageIndex=Integer.parseInt(otherParams[4]);
+int pageSize=Integer.parseInt(otherParams[5]);
+
+        len =UserRoles.finder.query().where()
+        .ilike("id", "%"+id+"%")
+        .ilike("RoleName", "%"+RoleName+"%")
+        .ilike("DateCreated", "%"+dateCreated+"%")
+        .ilike("Approved", "%"+approved+"%")
+        .findCount();
+
+        List<UserRoles> profiles = UserRoles.finder.query().where()
+        .ilike("id", "%"+id+"%")
+        .ilike("RoleName", "%"+RoleName+"%")
+        .ilike("DateCreated", "%"+dateCreated+"%")
+        .ilike("Approved", "%"+approved+"%")
+        .setFirstRow(pageIndex)
+        .setMaxRows(pageSize)
+        .findPagedList()
+        .getList();
+  return Json.toJson(profiles);
+
     }
 
     public Result deleteProfile() {

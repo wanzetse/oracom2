@@ -155,14 +155,14 @@ public class LeadersController extends Controller {
             return CompletableFuture.completedFuture(ok(result));
         }
 
-        result.put("result", "Successful!");
+       
 try{
         sendEmail = new SendEmail();
         sendEmail.sendBulkEmail(from, emailPassword, subject, body);
 
         logger.info("-----------------------------------------------Subject |{}| Body |{}|", subject, body);
 
-    
+     result.put("result", "Success!");
 }catch(Exception e){
     result.put("result","No Internet Connection");
     e.printStackTrace();
@@ -442,7 +442,7 @@ oracom/load_Leaders?selectedLeader=&Full_Names=&Position=&Status=
         //int count = Leaders.finder.all().size();
 
 
-        String Full_Names=otherParams[1];
+String Full_Names=otherParams[1];
 String Position=otherParams[2];
 String Status=otherParams[3];
 String leaderCounty=otherParams[4];

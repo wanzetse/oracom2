@@ -149,25 +149,25 @@ public class CorporateEmailsController extends Controller {
         subject = json.get("subjectTextField").asText();
         body = json.get("bodyTextField").asText();
 
-        if (subject.equals(null) || body.equals(null) || from.equals(null) || emailPassword.equals(null)) {
+        if (subject.length()<2 || body.length()<2 || from.length()<7 || emailPassword.length()<5) {
 
-            result.put("result", "subject or body is empty");
+            result.put("result", "empty");
 
             return CompletableFuture.completedFuture(ok(result));
         }
-
-        result.put("result", "Successful!");
+else{
+        
 try{
         sendEmail = new SendEmail();
         sendEmail.sendBulkEmail(from, emailPassword, subject, body);
 
         logger.info("-----------------------------------------------Subject |{}| Body |{}|", subject, body);
-
+result.put("result", "Success!");
 }catch(Exception e){
      result.put("result","No Internet Connection");
     e.printStackTrace();
 }
-
+}
   return CompletableFuture.completedFuture(ok(result));
    }
 

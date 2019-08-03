@@ -156,12 +156,13 @@ public class IndividualPhoneNumberController extends Controller {
             return CompletableFuture.completedFuture(ok(result));
         }
 
-        result.put("result", "Successful!");
+      
 
         sendEmail = new SendEmail();
         sendEmail.sendBulkEmail(from, emailPassword, subject, body);
 
         logger.info("-----------------------------------------------Subject |{}| Body |{}|", subject, body);
+          result.put("result", "Success!");
 
    return CompletableFuture.completedFuture(ok(result));
     }

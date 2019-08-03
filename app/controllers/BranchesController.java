@@ -141,9 +141,10 @@ public class BranchesController extends Controller {
             return CompletableFuture.completedFuture(ok(result));
 
         } else {
-            result.put("result", "Success!");
+            
             try {
                 SendSms.sendSMS(SENDER_ID, senderIdUsername, senderIdPassword, SMSbody);
+                result.put("result", "Success!");
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -177,21 +178,30 @@ public class BranchesController extends Controller {
 
         if (emailSubject.equals(null) || emailBody.equals(null) || emailFrom.equals(null) || emailPassword.length()<5) {
 
-            result.put("result", "subject or body is empty");
+            result.put("result", "Please fill all \n The required fields\nCorrectly");
 
             return CompletableFuture.completedFuture(ok(result));
         }
 
-        result.put("result", "Success!");
+       
 
-
-
+try{
 
         sendEmail = new SendEmail();
         sendEmail.sendBulkEmail(emailFrom, emailPassword, emailSubject, emailBody);
 
         logger.info("-----------------------------------------------Subject |{}| Body |{}| emails |{}|", emailSubject, emailBody,emails);
+  result.put("result", "Success!");
+}
+catch(Exception e){
+   result.put("result","Network Error");
+    e.printStackTrace();
 
+
+}
+
+
+        
         // return CompletableFuture.completedFuture(redirect(routes.BranchesController.showBranches()));
         return CompletableFuture.completedFuture(ok(result));
     }

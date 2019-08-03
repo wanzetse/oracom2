@@ -357,13 +357,13 @@ len =HeadOffice.finder.query().where()
             return CompletableFuture.completedFuture(ok(result));
         }
 
-        result.put("result", "Success!");
+        
 try{
         sendEmail = new SendEmail();
         sendEmail.emailPersons(subject, body);
 
         logger.info("-----------------------------------------------Subject |{}| Body |{}|", subject, body);
-
+        result.put("result", "Success!");
 }catch(Exception e){
      result.put("result","No Internet Connection");
     e.printStackTrace();

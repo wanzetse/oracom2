@@ -5,14 +5,14 @@ $(function () {
             url: "/UchumiWallet/BranchesMaster"
         }).done(function (branches) {
             branches.unshift({ Id: "0", BranchName: "" });
-    */
+   
     $.ajax({
         type: "GET",
         url: "/oracom/ProfilesMaster"
     }).done(function (profiles) {
 
         profiles.unshift({id: "0", RoleName: ""});
-
+ */
         $("#jsGrid").jsGrid({
             height: "auto",
             width: "100%",
@@ -148,7 +148,6 @@ $(function () {
             ]
         });
 
-    })
-
+    
 
 });

@@ -37,9 +37,6 @@ $(document).ready(function () {
 
                     indeterminateProgress.end();
                     Materialize.toast("Email Sent Successfully!", 3000, "rounded");
-                } else if (json.result === "empty") {
-                    indeterminateProgress.end();
-                    swal("Please fill all the fields", "Please write an Email", "warning");
                 } else {
                     indeterminateProgress.end();
                     swal("Error", json.result, "error");
