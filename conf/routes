@@ -138,7 +138,7 @@ DELETE        /oracom/deletePersonsByRegion                  controllers.Persons
 +nocsrf
 GET           /oracom/sendEmail_to_PersonsByRegion           controllers.PersonsByRegionController.sendEmail()
 +nocsrf
-GET           /oracom/sendSMS_to_PersonsByRegion             controllers.PersonsByRegionController.sendBulkSMS()
+POST           /oracom/sendSMS_to_PersonsByRegion             controllers.PersonsByRegionController.sendBulkSMS()
 
 
 #------------------------LEADERS/ASPIRANTS----------------------------------------------------------------------------
@@ -161,7 +161,7 @@ GET           /oracom/deleteAllLeaders                       controllers.Leaders
 +nocsrf
 GET           /oracom/deleteSelectedLeaders                  controllers.LeadersController.postDeleteSelectedLeader()
 +nocsrf
-GET           /oracom/sendSMS_to_Leaders                     controllers.LeadersController.sendBulkSMS()
+POST           /oracom/sendSMS_to_Leaders                     controllers.LeadersController.sendBulkSMS()
 +nocsrf
 GET           /oracom/sendEmail_to_Leaders                   controllers.LeadersController.sendEmail()
 

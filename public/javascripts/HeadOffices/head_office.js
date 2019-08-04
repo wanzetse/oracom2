@@ -162,11 +162,11 @@ $(function () {
                 {
                     name: "Sex",
                     title: "Gender",
-                    type: "select",
+                    type: "text",
                     // width: 50,
                     //validate: "required",
                     filtering: true,
-                    items: sex, valueField: "Id", textField: "Name"
+                    
 
                 },
                 //////Updates/////

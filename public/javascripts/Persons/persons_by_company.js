@@ -264,17 +264,10 @@ $(function () {
                 {
                     name: "Sex",
                     title: "Gender",
-                    type: "select",
+                    type: "text",
                     width: 5,
                     filtering:true
-                   /* items: [
-                        {Name: "", Id: 0},
-                        {Name: "M", Id: 1},
-                        {Name: "F", Id: 2}
-                    ],
-                    valueField: "Name",
-                    textField: "Name"
-                    */
+                  
 
                 }, {
                     name: "Status",

@@ -19,7 +19,6 @@ import play.libs.Json;
 import play.libs.concurrent.HttpExecution;
 import play.mvc.*;
 import views.html.businesscategory.businesscategory;
-
 import javax.inject.Inject;
 import java.io.File;
 import java.io.FileOutputStream;

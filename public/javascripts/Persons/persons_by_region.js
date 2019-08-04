@@ -315,7 +315,7 @@ $(function () {
                 {
                     name: "person_Gender",
                     title: "Gender",
-                    type: "select",
+                    type: "text",
                     width: 90,
                     //validate: "required",
                     filtering: true
