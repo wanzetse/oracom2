@@ -675,7 +675,7 @@ branches = Branch.find.query().where()
 
 
             Workbook workbook = new XSSFWorkbook();
-            Sheet sheet = workbook.createSheet("CompanyDirectory");
+            Sheet sheet = workbook.createSheet("CompanyDirectory2");
 
             Font headerFont = workbook.createFont();
             headerFont.setBold(true);

@@ -96,6 +96,16 @@ create table tbemaildeliveryreports (
   constraint pk_tbemaildeliveryreports primary key (id)
 );
 
+create table tbemailreports (
+  id                            integer not null,
+  sent_by                       varchar(255),
+  sent_to                       varchar(255),
+  received                      integer(1) default 0 not null,
+  sent_date                     varchar(255),
+  date_received                 varchar(255),
+  constraint pk_tbemailreports primary key (id)
+);
+
 create table tbglaccounts (
   id                            integer not null,
   gl_name                       varchar(255),
@@ -283,6 +293,16 @@ create table tbsmsdeliveryreports (
   sent_by                       varchar(255),
   date_sent                     varchar(255),
   constraint pk_tbsmsdeliveryreports primary key (id)
+);
+
+create table tbsmsreports (
+  id                            integer not null,
+  sent_by                       varchar(255),
+  sent_to                       varchar(255),
+  received                      integer(1) default 0 not null,
+  sent_date                     varchar(255),
+  date_received                 varchar(255),
+  constraint pk_tbsmsreports primary key (id)
 );
 
 create table tbaccount (
@@ -602,6 +622,8 @@ drop table if exists t_docs;
 
 drop table if exists tbemaildeliveryreports;
 
+drop table if exists tbemailreports;
+
 drop table if exists tbglaccounts;
 
 drop table if exists tbperson;
@@ -627,6 +649,8 @@ drop table if exists tbproducts;
 drop table if exists tbprofiles;
 
 drop table if exists tbsmsdeliveryreports;
+
+drop table if exists tbsmsreports;
 
 drop table if exists tbaccount;
 
