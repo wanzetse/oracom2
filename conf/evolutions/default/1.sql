@@ -98,6 +98,8 @@ create table tbemaildeliveryreports (
 
 create table tbemailreports (
   id                            integer not null,
+  type                          varchar(255),
+  sender_name                   varchar(255),
   sent_by                       varchar(255),
   sent_to                       varchar(255),
   received                      integer(1) default 0 not null,
@@ -297,6 +299,8 @@ create table tbsmsdeliveryreports (
 
 create table tbsmsreports (
   id                            integer not null,
+  type                          varchar(255),
+  sender_name                   varchar(255),
   sent_by                       varchar(255),
   sent_to                       varchar(255),
   received                      integer(1) default 0 not null,

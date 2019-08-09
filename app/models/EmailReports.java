@@ -11,6 +11,8 @@ import java.util.*;
 public class EmailReports extends Model{
 @Id 
 public Long id;
+public String type;
+public String SenderName;
 public String SentBy;
 public String SentTo;
 public boolean received;
