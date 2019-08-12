@@ -190,7 +190,7 @@ try{
         sendEmail = new SendEmail();
         sendEmail.sendBulkEmail(emailFrom, emailPassword, emailSubject, emailBody);
 
-        logger.info("-----------------------------------------------Subject |{}| Body |{}| emails |{}|", emailSubject, emailBody,emails);
+        logger.info("-----------------------------------------------Subject |{}| Body |{}| emailFrom |{}|", emailSubject, emailBody,emailFrom);
   result.put("result", "Success!");
 }
 catch(Exception e){

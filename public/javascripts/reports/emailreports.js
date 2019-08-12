@@ -143,8 +143,8 @@ public String DateReceived;
                     // validate: "required"
                 },
                 {
-                    name: "received", title: "Delivered", type: "checkbox", filtering: true,
-                    width: 100
+                    name: "received", title: "Delivered", type: "_checkboxDateField", width: 90, align: "center"
+                    
                     /*
                       validate: {
                           message: "Email Must be Specified", validator: function (value) {

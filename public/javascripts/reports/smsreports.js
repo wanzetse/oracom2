@@ -25,8 +25,55 @@ $(function () {
         return $result;
     };
 
+    //************CUSTOM CHECKBOX*************
+    var MyCheckboxDateField = function (config) {
+        jsGrid.Field.call(this, config);
+    };
 
-   
+    MyCheckboxDateField.prototype = new jsGrid.Field({
+       itemTemplate: function (value) {
+            //return $("<label>").append($('<input />', { type: 'checkbox', checked: value}).checkboxradio());
+            this._label = $("<label>");
+            this._datecheck = $('<input />', {type: 'checkbox', checked: value});
+            this._datecheck.appendTo(this._label);
+            this._datecheck.checkboxradio();
+            console.log($(this._datecheck).prop('checked'));
+            return this._label;
+            /// return $('<input />', { type: 'checkbox', checked: value}).checkboxradio({label : ""});
+        },
+        editTemplate: function (value) {
+            ///return this._editdatecheck=$("<label>").append($('<input />', { type: 'checkbox', checked: value}));
+
+            return this._editTemplate_label = new editlabeldatefield(this, value);///=editlabeldatefield(value);
+        },
+        editValue: function () {
+            console.log($(this._editTemplate_check).prop('checked'));
+            return $(this._editTemplate_check).prop('checked');
+        },
+        insertTemplate: function (value) {
+            this._insertTemplate_label = $("<label>");
+            this._insertTemplate_check = $('<input />', {type: 'checkbox'});
+            this._insertTemplate_check.appendTo(this._insertTemplate_label);
+            this._insertTemplate_check.checkboxradio();
+            //return $("<label>").append($('<input />', { type: 'checkbox', checked: value}).checkboxradio());
+            //console.log(this._insertTemplate_check);
+            return this._insertTemplate_label;///=editlabeldatefield(value);
+        },
+        insertValue: function () {
+            return $(this._insertTemplate_check).prop('checked');
+        }
+    });
+
+    jsGrid.fields._checkboxDateField = MyCheckboxDateField;
+
+    //************CUSTOM CHECKBOX*************
+    var deliv = [
+        
+        {Name: true, Id: 1},
+        {Name: false, Id: 2}
+
+
+    ];
 
         $("#jsGrid").jsGrid({
             height: "auto",
@@ -41,6 +88,7 @@ $(function () {
             loadShading: true,
             pageLoading:true,
             pageSize: 5,
+
             
             rowClick: function (args) {
                 var $row = this.rowByItem(args.item);
@@ -61,6 +109,7 @@ public String DateReceived;
 
 */
 
+               {type: "control"},
                 {
                     name: "type",
                     title: "SMS Category",
@@ -93,14 +142,12 @@ public String DateReceived;
                     // validate: "required"
                 },
                
-                { name: "received", title: "Delivered", align: "center",
-                itemTemplate: function(value, item) {
-                return $("<input>").attr("type", "checkbox")
-                        .attr("checked", value || item.Checked)
-                    .on("change", function() {
-                        item.Checked = $(this).is(":checked");
-                    });
-              }
+            {    name: "received",
+                 title: "Delivered",
+                 type: "_checkboxDateField", width: 50, align: "center",
+                 readOnly: "true"
+                    
+               
             },
                 {
                     name: "SentDate",

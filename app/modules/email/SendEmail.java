@@ -12,6 +12,7 @@ import io.vertx.ext.mail.*;
 import models.*;
 import play.Logger;
 import play.mvc.Http;
+import models.EmailReports;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,10 @@ public class SendEmail {
      List<String> emailList = getEmails();
 
 for(int i=0;i<emailList.size();i++){
+    String SentDate=datestring();
+    String SentBy=from;
+    String SentTo=emailList.get(i);
+    String type="BUSINESS EMAIL";
      MailMessage message = new MailMessage()
              .setSubject(subject)
              .setFrom(from)
@@ -76,6 +81,10 @@ for(int i=0;i<emailList.size();i++){
 
          }
      });
+     boolean received=emailDelivered;
+     String DateReceived=datestring();
+     String SenderName = "agile";
+     emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived);
  }
           //  generateEmailReport(from,emailList,emailDelivered,);
 
@@ -118,6 +127,7 @@ for(int i=0;i<emailList.size();i++){
 
                 }
             });
+
 
 
         }
@@ -236,7 +246,28 @@ for(int i=0;i<emailList.size();i++){
 
 
     }
+    public static void emailreporting(
+        String type,String SenderName,String SentBy,
+        String SentTo,boolean received,
+        String SentDate,String DateReceived )
+    {
 
+EmailReports emr=new EmailReports();
+emr.type=type;
+emr.SenderName=SenderName;
+emr.SentTo=SentBy;
+emr.SentTo=SentTo;
+emr.received=received;
+emr.SentDate=SentDate;
+emr.DateReceived=DateReceived;
+emr.save();
+
+}
+public static String datestring(){
+java.util.Date dt =new java.util.Date();
+String date=dt.toString();
+    return date;
+}
 
 }
 

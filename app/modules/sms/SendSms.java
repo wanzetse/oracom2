@@ -11,6 +11,9 @@ import models.HeadOffice;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import models.SmsReports;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 public class SendSms extends SMSconfig {
 
@@ -158,5 +161,15 @@ public class SendSms extends SMSconfig {
         return msisdnList;
 
 
+    }
+public void reportSms(String[] params,boolean received){
+String type=params[0];
+String SenderName=params[1];
+String SentBy=params[2];
+String SentTo=params[3];
+String SentDate=params[4];
+String DateReceived=params[5];
+SmsReports sms=new SmsReports(type,SenderName,SentBy,SentTo,received,SentDate,DateReceived);
+sms.save();
     }
 }

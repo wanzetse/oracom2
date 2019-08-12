@@ -125,7 +125,7 @@ $(function () {
                     type: "text",
                     width: 150,
                     // validate: "required"
-                    filtering: true
+                    filtering: "true"
                 },
                 {
                     name: "Company",
