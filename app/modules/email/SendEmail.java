@@ -25,12 +25,13 @@ public class SendEmail {
     private static Vertx mailVertx = Vertx.vertx(new VertxOptions().setWorkerPoolSize(40));
     private static MailClient mailClient;
     public boolean emailDelivered = false;
+    String DateReceived=" ";
     //public sentBy
 
 
 
  public void sendBulkEmail(String from, String password, String subject, String body) {
-
+ 
      MailAttachment attachment = new MailAttachment();
      attachment.setContentType("text/plain");
      attachment.setData(Buffer.buffer("attachment file"));
@@ -52,6 +53,7 @@ public class SendEmail {
      List<String> emailList = getEmails();
 
 for(int i=0;i<emailList.size();i++){
+
     String SentDate=datestring();
     String SentBy=from;
     String SentTo=emailList.get(i);
@@ -71,6 +73,9 @@ for(int i=0;i<emailList.size();i++){
          if (result.succeeded()) {
 
              emailDelivered = true;
+             DateReceived=datestring();
+
+
 
              System.out.println(result.result());
 
@@ -82,7 +87,7 @@ for(int i=0;i<emailList.size();i++){
          }
      });
      boolean received=emailDelivered;
-     String DateReceived=datestring();
+     
      String SenderName = "agile";
      emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived);
  }
@@ -255,7 +260,7 @@ for(int i=0;i<emailList.size();i++){
 EmailReports emr=new EmailReports();
 emr.type=type;
 emr.SenderName=SenderName;
-emr.SentTo=SentBy;
+emr.SentBy=SentBy;
 emr.SentTo=SentTo;
 emr.received=received;
 emr.SentDate=SentDate;

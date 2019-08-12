@@ -29,9 +29,7 @@ public class ReportsController extends Controller{
 
     }
 	public Result smsreports(){
-     SmsReports rp=new SmsReports("where","while","Appendable",
-     	"SuppressWarnings",true,"extends","long");
-     rp.save();
+   
 		return ok(smsreports.render());
 	}
 

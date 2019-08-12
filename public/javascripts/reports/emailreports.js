@@ -111,9 +111,10 @@ public String SentDate;
 public String DateReceived;
 
 */
+              
                 {
                     name: "type",
-                    title: "SMS Category",
+                    title: "Email Category",
                     type: "text",
                     width: 150,
                     // validate: "required"
@@ -123,7 +124,7 @@ public String DateReceived;
                     name: "SentBy",
                     title: "SENDER EMAIL",
                     type: "text",
-                    width: 150,
+                    width: 250,
                     // validate: "required"
                     filtering: true
                 }, {
@@ -136,9 +137,9 @@ public String DateReceived;
                 },
                 {
                     name: "SentTo",
-                    title: "RECIEVER",
+                    title: "RECIEVER Email",
                     type: "text",
-                    width: 150,
+                    width: 250,
                     filtering: true
                     // validate: "required"
                 },
@@ -157,14 +158,14 @@ public String DateReceived;
                     name: "SentDate",
                     title: "Date Sent",
                     type: "text",
-                    width: 100,
+                    width: 150,
                     filtering: true
                     },
                 {
                     name: "DateReceived",
                     title: "Date Received",
                     type: "text",
-                    width: 100,
+                    width: 150,
                     //validate: "required",
                     filtering: true
                     
