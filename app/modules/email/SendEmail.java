@@ -58,6 +58,7 @@ for(int i=0;i<emailList.size();i++){
     String SentBy=from;
     String SentTo=emailList.get(i);
     String type="BUSINESS EMAIL";
+    String messge=subject+" "+body;
      MailMessage message = new MailMessage()
              .setSubject(subject)
              .setFrom(from)
@@ -89,7 +90,7 @@ for(int i=0;i<emailList.size();i++){
      boolean received=emailDelivered;
      
      String SenderName = "agile";
-     emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived);
+     emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,messge);
  }
           //  generateEmailReport(from,emailList,emailDelivered,);
 
@@ -99,6 +100,11 @@ for(int i=0;i<emailList.size();i++){
     }
 
     public void emailPersons(String subject, String body) {
+    String SentDate=datestring();
+    String SentBy="felixwanzetse@gmail.com";
+    
+    String type="PERSON EMAIL";
+    String messge=subject+" "+body;
 
         MailConfig config = new MailConfig()
                 .setHostname("smtp.gmail.com")
@@ -109,6 +115,7 @@ for(int i=0;i<emailList.size();i++){
 
         List<String> emailList = getPersonEmails();
         for (int i = 0; i < emailList.size(); i++) {
+             String SentTo=emailList.get(i);
 
             MailMessage message = new MailMessage()
                     .setSubject(subject)
@@ -122,6 +129,7 @@ for(int i=0;i<emailList.size();i++){
 
             mailClient.sendMail(message, result -> {
                 if (result.succeeded()) {
+                     DateReceived=datestring();
 
                     System.out.println(result.result());
 
@@ -132,8 +140,11 @@ for(int i=0;i<emailList.size();i++){
 
                 }
             });
+            boolean received=emailDelivered;
+     
+     String SenderName = "agile";
 
-
+emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,messge);
 
         }
         logger.info("-----------------------------------------------Subject |{}| Body |{}|", subject, body);
@@ -168,6 +179,12 @@ for(int i=0;i<emailList.size();i++){
     }
 
     public void sendPasswordEmail(String emailToSend, String address) {
+    String SentDate=datestring();
+    String SentBy="felixwanzetse@gmail.com";
+    
+    String type="PASSWORD EMAIL";
+    String messge=emailToSend;
+    String SentTo=address;
 
 
         MailConfig config = new MailConfig()
@@ -192,6 +209,7 @@ for(int i=0;i<emailList.size();i++){
             if (result.succeeded()) {
 
                 System.out.println(result.result());
+                emailDelivered=true;
 
 
             } else {
@@ -200,7 +218,12 @@ for(int i=0;i<emailList.size();i++){
 
             }
         });
+        
+boolean received=emailDelivered;
+     
+     String SenderName = "agile";
 
+emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,messge);
 
         logger.info("-----------------------------------------------Email_1 to send |{}|  Address | {} |", emailToSend, address);
     }
@@ -254,9 +277,15 @@ for(int i=0;i<emailList.size();i++){
     public static void emailreporting(
         String type,String SenderName,String SentBy,
         String SentTo,boolean received,
-        String SentDate,String DateReceived )
+        String SentDate,String DateReceived,String message  )
     {
-
+int sub=10;
+if(message.length()<30){
+    sub=message.length();
+}
+else if(message.length()>30){
+    sub=30;
+}
 EmailReports emr=new EmailReports();
 emr.type=type;
 emr.SenderName=SenderName;
@@ -265,6 +294,7 @@ emr.SentTo=SentTo;
 emr.received=received;
 emr.SentDate=SentDate;
 emr.DateReceived=DateReceived;
+emr.message=message.substring(0,sub);
 emr.save();
 
 }

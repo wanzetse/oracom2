@@ -18,10 +18,11 @@ public String SentTo;
 public boolean received;
 public String SentDate;
 public String DateReceived;
+public String message;
 public SmsReports(){
 
 }
-public SmsReports(String type,String SenderName,String SentBy,String SentTo,boolean received,String SentDate,String DateReceived){
+public SmsReports(String type,String SenderName,String SentBy,String SentTo,boolean received,String SentDate,String DateReceived,String message){
 	this.type=type;
 	this.SenderName=SenderName;
 	this.SentBy=SentBy;
@@ -29,6 +30,7 @@ public SmsReports(String type,String SenderName,String SentBy,String SentTo,bool
 	this.received=received;
 	this.SentDate=SentDate;
 	this.DateReceived=DateReceived;
+	this.message=message;
 }
 public static Finder<Long,SmsReports> find =new Finder<>(SmsReports.class);
 }

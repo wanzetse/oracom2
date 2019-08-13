@@ -18,6 +18,7 @@ public String SentTo;
 public boolean received;
 public String SentDate;
 public String DateReceived;
+public String message;
 public EmailReports(){
 
 }

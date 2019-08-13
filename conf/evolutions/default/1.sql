@@ -105,6 +105,7 @@ create table tbemailreports (
   received                      integer(1) default 0 not null,
   sent_date                     varchar(255),
   date_received                 varchar(255),
+  message                       varchar(255),
   constraint pk_tbemailreports primary key (id)
 );
 
@@ -306,6 +307,7 @@ create table tbsmsreports (
   received                      integer(1) default 0 not null,
   sent_date                     varchar(255),
   date_received                 varchar(255),
+  message                       varchar(255),
   constraint pk_tbsmsreports primary key (id)
 );
 

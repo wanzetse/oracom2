@@ -121,6 +121,14 @@ public String DateReceived;
                     filtering: true
                 },
                 {
+                    name: "message",
+                    title: "Contents",
+                    type: "text",
+                    width: 250,
+                    // validate: "required"
+                    filtering: true
+                },
+                {
                     name: "SentBy",
                     title: "SENDER EMAIL",
                     type: "text",
