@@ -77,7 +77,7 @@ $(function () {
 
         $("#jsGrid").jsGrid({
             height: "auto",
-            width: "auto",
+            width: "100%",
             filtering: true,
             sorting: true,
             paging: true,

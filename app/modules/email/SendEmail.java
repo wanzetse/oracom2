@@ -13,6 +13,7 @@ import models.*;
 import play.Logger;
 import play.mvc.Http;
 import models.EmailReports;
+import play.mvc.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,9 @@ public class SendEmail {
     //public static String emailToSend;
     private static Vertx mailVertx = Vertx.vertx(new VertxOptions().setWorkerPoolSize(40));
     private static MailClient mailClient;
-    public boolean emailDelivered = false;
-    String DateReceived=" ";
+    public static boolean emailDelivered = false;
+    static String DateReceived=" ";
+    //static String SenderName = Result.session().get("Username");
     //public sentBy
 
 
@@ -88,8 +90,8 @@ for(int i=0;i<emailList.size();i++){
          }
      });
      boolean received=emailDelivered;
-     
      String SenderName = "agile";
+    
      emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,messge);
  }
           //  generateEmailReport(from,emailList,emailDelivered,);
@@ -122,7 +124,7 @@ for(int i=0;i<emailList.size();i++){
                     .setFrom("felixwanzetse@gmail.com")
                     .setTo(getPersonEmails())
                     // .setCc("Another User <another@example.net>")
-                    .setText(body);
+                    .setHtml(body);
 
             mailClient = MailClient.createShared(mailVertx, config, "exampleclient");
 
@@ -200,7 +202,7 @@ emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,me
                 .setFrom("felixwanzetse@gmail.com")
                 .setTo(address)
                 // .setCc("Another User <another@example.net>")
-                .setText(emailToSend);
+                .setHtml(emailToSend);
 
         mailClient = MailClient.createShared(mailVertx, config, "exampleclient");
 
@@ -230,6 +232,12 @@ emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,me
 
     public static void sendHealthCheckEmail(String emailSubject, String emailBody) {
 
+    String SentDate=datestring();
+    String SentBy="felixwanzetse@gmail.com";
+    String SentTo="felixwanzetse@gmail.com";
+    String type="HEALTHCHECK EMAIL";
+    String messge=emailSubject+" "+emailBody;
+
         MailConfig config = new MailConfig()
                 .setHostname("smtp.gmail.com")
                 .setPort(587)
@@ -243,7 +251,7 @@ emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,me
                 .setFrom("felixwanzetse@gmail.com")
                 .setTo("felixwanzetse@gmail.com")
                 .setCc("Another User <another@example.net>")
-                .setText(emailBody);
+               .setHtml(emailBody);
 
         mailClient = MailClient.createShared(mailVertx, config, "exampleclient");
 
@@ -251,6 +259,7 @@ emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,me
             if (result.succeeded()) {
 
                 System.out.println(result.result());
+                 emailDelivered=true;
 
 
             } else {
@@ -260,7 +269,9 @@ emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,me
             }
         });
 
-
+           boolean received=emailDelivered;
+            String SenderName = "agile";
+             emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,messge);
         logger.info("-----------------------------------------------Email_1 Subject |{}| Email_1 Body |{}| ", emailSubject, emailBody);
 
 

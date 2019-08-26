@@ -300,4 +300,4 @@ GET           /assets/*file                                  controllers.Assets.
 GET           /oracom/smsreports                             controllers.ReportsController.smsreports()
 GET           /oracom/Emailreports                           controllers.ReportsController.emailreports()
 GET           /oracom/loadSmsreports                          controllers.ReportsController.loadSmsReports()
-GET           /oracom/loadEmailreports                           controllers.ReportsController.loadEmailReports()
+GET           /oracom/loadEmailreports                        controllers.ReportsController.loadEmailReports()

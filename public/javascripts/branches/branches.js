@@ -176,38 +176,7 @@ $(function () {
 
     ///filtering////
 
-    function applyFilter(data, filter) {
 
-
-        return $.grep(data, function (item) {
-            // client-side filtering below (be sure conditions are correct)
-
-            return (!filter.selected || item.selected.indexOf(filter.selected) > -1)
-                && (!filter.Company_Name || item.Company_Name.toLowerCase().indexOf(filter.Company_Name.toLowerCase()) > -1)
-                && (!filter.Company_Category || item.Company_Category.toLowerCase().indexOf(filter.Company_Category.toLowerCase()) > -1)
-                && (!filter.Company_Subcategory || item.Company_Subcategory.toLowerCase().indexOf(filter.Company_Subcategory.toLowerCase()) > -1)
-                && (!filter.Email_1 || item.Email_1.toLowerCase().indexOf(filter.Email_1.toLowerCase()) > -1)
-                && (!filter.Email_2 || item.Email_2.toLowerCase().indexOf(filter.Email_2.toLowerCase()) > -1)
-                && (!filter.Phone_1 || item.Phone_1.toLowerCase().indexOf(filter.Phone_1.toLowerCase()) > -1)
-                && (!filter.Phone_2 || item.Phone_2.toLowerCase().indexOf(filter.Phone_2.toLowerCase()) > -1)
-                && (!filter.Website || item.Website.toLowerCase().indexOf(filter.Website.toLowerCase()) > -1)
-                && (!filter.County || item.County.toLowerCase().indexOf(filter.County.toLowerCase()) > -1)
-                && (!filter.Town || item.Town.toLowerCase().indexOf(filter.Town.toLowerCase()) > -1)
-                && (!filter.Street_Name || item.Street_Name.toLowerCase().indexOf(filter.Street_Name.toLowerCase()) > -1)
-                && (!filter.Building || item.Building.toLowerCase().indexOf(filter.Building.toLowerCase()) > -1)
-                && (!filter.MapLatitude || item.MapLatitude.indexOf(filter.MapLatitude) > -1)
-                && (!filter.MapLongitude || item.MapLongitude.indexOf(filter.MapLongitude) > -1)
-                && (!filter.Company_Branch || item.toLowerCase().Company_Branch.indexOf(filter.Company_Branch.toLowerCase()) > -1)
-                && (!filter.Services || item.Services.toLowerCase().indexOf(filter.Services.toLowerCase()) > -1)
-                && (!filter.Status || item.Status.toLowerCase().indexOf(filter.Status.toLowerCase()) > -1)
-                && (!filter.Comments || item.Comments.toLowerCase().indexOf(filter.Comments.toLowerCase()) > -1)
-                && (!filter.CreatedBy || item.CreatedBy.toLowerCase().indexOf(filter.CreatedBy.toLowerCase()) > -1)
-                && (!filter.dateCreated || item.dateCreated.indexOf(filter.dateCreated) > -1)
-
-
-        });
-
-    }
 
 
 

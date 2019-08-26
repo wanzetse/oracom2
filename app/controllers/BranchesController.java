@@ -464,7 +464,7 @@ catch(Exception e){
         return CompletableFuture.completedFuture(ok());
     }
 
-    @Security.Authenticated(Secured.class)
+    //@Security.Authenticated(Secured.class)
     public CompletionStage<Result> loadBranches() {
 
         // Executor myEc = HttpExecution.fromThread((Executor) esbExecutionContext);
@@ -738,6 +738,7 @@ branches = Branch.find.query().where()
             e.printStackTrace();
         }
         return CompletableFuture.completedFuture(redirect(routes.BranchesController.showBranches()));
+
 
     }
 

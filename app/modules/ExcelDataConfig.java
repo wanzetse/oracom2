@@ -46,13 +46,15 @@ public class ExcelDataConfig {
     
    
     String s=formatter.formatCellValue(val);
-
+    String s2="";
     if(s.length()<1){
-                s="null";
+                s2="null";
             }else{
-                s=s.trim();
+                s2=s.trim().replaceAll("\\s+", " ");
+               
             }
-            return s;
+            return s2;
+
         }
 
 @play.db.ebean.Transactional
