@@ -152,7 +152,7 @@ int pageSize=Integer.parseInt(otherParams[5]);
         .ilike("RoleName", "%"+RoleName+"%")
         .ilike("DateCreated", "%"+dateCreated+"%")
         .ilike("Approved", "%"+approved+"%")
-        .setFirstRow(pageIndex)
+                .setFirstRow(pageIndex-1)
         .setMaxRows(pageSize)
         .findPagedList()
         .getList();

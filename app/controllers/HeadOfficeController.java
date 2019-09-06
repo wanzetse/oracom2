@@ -283,7 +283,7 @@ len =HeadOffice.finder.query().where()
         .ilike("Comments", "%"+Comments+"%")
         .ilike("dateCreated", "%"+dateCreated+"%")
         .ilike("CreatedBy", "%"+CreatedBy+"%")
-        .setFirstRow(pageIndex)
+         .setFirstRow(pageIndex-1)
         .setMaxRows(pageSize)
         .findPagedList()
         .getList();

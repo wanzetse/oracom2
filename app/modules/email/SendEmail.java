@@ -3,21 +3,20 @@ package modules.email;
 // using SendGrid's Java Library
 // https://github.com/sendgrid/sendgrid-java
 
-import io.ebean.Ebean;
-import io.ebean.EbeanServer;
+
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.ext.mail.*;
 import models.*;
 import play.Logger;
-import play.mvc.Http;
+import controllers.BranchesController;
 import models.EmailReports;
-import play.mvc.Result;
 
-import java.util.ArrayList;
+
+
 import java.util.List;
-import java.util.Optional;
+
 
 
 public class SendEmail {
@@ -90,7 +89,9 @@ for(int i=0;i<emailList.size();i++){
          }
      });
      boolean received=emailDelivered;
-     String SenderName = "agile";
+     String SenderName =BranchesController.sessionName();
+
+   
     
      emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,messge);
  }
@@ -143,8 +144,8 @@ for(int i=0;i<emailList.size();i++){
                 }
             });
             boolean received=emailDelivered;
-     
-     String SenderName = "agile";
+
+            String SenderName =BranchesController.sessionName();
 
 emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,messge);
 
@@ -222,8 +223,8 @@ emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,me
         });
         
 boolean received=emailDelivered;
-     
-     String SenderName = "agile";
+
+        String SenderName =BranchesController.sessionName();
 
 emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,messge);
 
@@ -270,8 +271,8 @@ emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,me
         });
 
            boolean received=emailDelivered;
-            String SenderName = "agile";
-             emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,messge);
+        String SenderName =BranchesController.sessionName();
+            emailreporting( type,SenderName,SentBy,SentTo, received,SentDate,DateReceived,messge);
         logger.info("-----------------------------------------------Email_1 Subject |{}| Email_1 Body |{}| ", emailSubject, emailBody);
 
 

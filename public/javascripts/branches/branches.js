@@ -182,7 +182,7 @@ $(function () {
 
     $("#jsGrid").jsGrid({
         height: "auto",
-        width: "100%",
+        width: "auto",
         updateOnResize: true,
         filtering: true,
         inserting: true,
@@ -323,6 +323,7 @@ $(function () {
                 width: 200,
                 autosearch: true,
                 filtering: true,
+                sorting: true,
                 message: "Please enter Company Name",
                 validate: "required"
             },

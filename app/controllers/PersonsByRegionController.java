@@ -64,7 +64,7 @@ public class PersonsByRegionController extends Controller {
     }
 
 
-    // @Security.Authenticated(Secured.class)
+    @Security.Authenticated(Secured.class)
     public CompletionStage<Result> showPersonsByRegion() {
 
         Form<FormDataController> personsByRegion = formFactory.form(FormDataController.class);
@@ -379,7 +379,7 @@ int pageSize=Integer.parseInt(otherParams[14]);
         .ilike("person_comment", "%"+person_comment+"%")
         .ilike("person_CreatedBy", "%"+person_CreatedBy+"%")
         .ilike("person_CreateDate", "%"+person_CreateDate+"%")
-        .setFirstRow(pageIndex)
+        .setFirstRow(pageIndex-1)
         .setMaxRows(pageSize)
         .findPagedList()
         .getList();

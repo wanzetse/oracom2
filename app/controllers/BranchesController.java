@@ -46,7 +46,7 @@ import static modules.ExcelDataConfig.sheetColumns;
 
 import static play.libs.concurrent.HttpExecution.fromThread;
 
-//@Security.Authenticated(Secured.class)
+@Security.Authenticated(Secured.class)
 public class BranchesController extends Controller {
 
     private EsbExecutionContext esbExecutionContext;
@@ -146,6 +146,7 @@ public class BranchesController extends Controller {
                 SendSms.sendSMS(SENDER_ID, senderIdUsername, senderIdPassword, SMSbody);
                 result.put("result", "Success!");
 
+
             }catch (Exception e){
                 e.printStackTrace();
                 result.put("result","Authentication Or network Connection failure");
@@ -176,19 +177,20 @@ public class BranchesController extends Controller {
 
 
 
-        if (emailSubject.equals(null) || emailBody.equals(null) || emailFrom.equals(null) || emailPassword.length()<5) {
+        if (emailSubject.length()<1 || emailBody.length()<4|| emailFrom.length()<7|| emailPassword.length()<5) {
 
             result.put("result", "Please fill all \n The required fields\nCorrectly");
 
             return CompletableFuture.completedFuture(ok(result));
         }
-
+else{
        
 
 try{
 
         sendEmail = new SendEmail();
         sendEmail.sendBulkEmail(emailFrom, emailPassword, emailSubject, emailBody);
+    System.out.println(emailPassword);
 
         logger.info("-----------------------------------------------Subject |{}| Body |{}| emailFrom |{}|", emailSubject, emailBody,emailFrom);
   result.put("result", "Success!");
@@ -198,7 +200,7 @@ catch(Exception e){
     e.printStackTrace();
 
 
-}
+}}
 
 
         
@@ -592,7 +594,8 @@ branches = Branch.find.query().where()
         .ilike("Comments", "%"+Comments+"%")
         .ilike("CreatedBy", "%"+CreatedBy+"%")
         .ilike("dateCreated", "%"+dateCreated+"%")
-        .setFirstRow(pageIndex)
+        .orderBy("Company_Name asc")
+        .setFirstRow(pageIndex-1)
         .setMaxRows(pageSize)
         .findPagedList()
         .getList();
@@ -752,6 +755,10 @@ branches = Branch.find.query().where()
 
     }
 
+public static String sessionName(){
 
+String usename=session().get("Username");
+return usename;
+}
 
 }

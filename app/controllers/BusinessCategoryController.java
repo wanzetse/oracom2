@@ -57,7 +57,7 @@ public class BusinessCategoryController extends Controller {
     }
 
 
-   // @Security.Authenticated(Secured.class)
+    @Security.Authenticated(Secured.class)
     public Result showPhones() {
 
         Form<FormDataController> phones = formFactory.form(FormDataController.class);
@@ -349,8 +349,7 @@ len = Phones.finder.query().where()
         .ilike("individualPhone_Comments", "%"+individualPhone_Comments+"%")
         .ilike("CreateDate", "%"+CreateDate+"%")
         .ilike("CreatedBy", "%"+CreatedBy+"%")
-        
-        .setFirstRow(pageIndex)
+         .setFirstRow(pageIndex-1)
         .setMaxRows(pageSize)
         .findPagedList()
         .getList();

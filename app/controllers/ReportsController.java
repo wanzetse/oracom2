@@ -111,7 +111,7 @@ len = SmsReports.find.query().where()
         .ilike("SentDate", "%"+SentDate+"%")
         .ilike("DateReceived", "%"+DateReceived+"%")
         //.eq("received",received)
-        .setFirstRow(pageIndex)
+               .setFirstRow(pageIndex-1)
         .setMaxRows(pageSize)
         .findPagedList()
         .getList();
@@ -148,10 +148,10 @@ len = EmailReports.find.query().where()
         .ilike("SentTo", "%"+SentTo+"%")
         .ilike("SentDate", "%"+SentDate+"%")
         .ilike("DateReceived", "%"+DateReceived+"%")
-        //.eq("received",received)
-        .setFirstRow(pageIndex)
+        .setFirstRow(pageIndex-1)
         .setMaxRows(pageSize)
         .findPagedList()
+
         .getList();
         
 return Json.toJson(Emailreports);
