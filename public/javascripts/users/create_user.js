@@ -15,7 +15,7 @@ $(function () {
  */
         $("#jsGrid").jsGrid({
             height: "auto",
-            width: "100%",
+            width: "auto",
             filtering: true,
             inserting: true,
             editing: true,
